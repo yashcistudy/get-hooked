@@ -1,0 +1,150 @@
+/* hooked · mobile.css (loaded only up to 760px)
+   Same paper/ink rhythm, same thread. On a phone the spine can't run down the
+   page, so it becomes the bar at the bottom: one knot per section, filling red
+   as you scroll. Long rows become swipe decks with their own little thread. */
+
+:root{--gutter:18px;--sec-pad:76px;--d-xl:clamp(50px,14vw,64px);--d-lg:clamp(42px,11.5vw,54px);--d-md:clamp(28px,7.6vw,36px)}
+body{padding-bottom:calc(84px + env(safe-area-inset-bottom))}
+.spine{display:none}
+.lead{font-size:18px}
+
+/* ---------- the thread nav ---------- */
+.thread-nav{position:fixed;left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom));z-index:60;display:flex;align-items:center;gap:12px;height:58px;padding:0 18px 0 20px;border-radius:var(--radius-pill);background:var(--surface-paper);color:var(--on-paper-text);border:var(--stroke-ui) solid var(--on-paper-border-strong);box-shadow:0 14px 30px -14px rgb(0 0 0 / .45);transform:translateY(calc(100% + 30px)) rotate(-1deg);transition:transform .45s var(--ease-spring),background .3s,color .3s,border-color .3s}
+.thread-nav.is-up{transform:none}
+.thread-nav[data-on="ink"]{background:var(--surface-ink);color:var(--on-ink-text);border-color:var(--neutral-700)}
+.tn-label{flex:none;width:98px;font-family:var(--font-display);font-size:22px;line-height:.96;text-transform:lowercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tn-track{position:relative;flex:1;height:44px}
+.tn-svg{position:absolute;left:0;right:0;top:50%;width:100%;height:20px;transform:translateY(-50%);overflow:visible}
+.tn-bg,.tn-fill{fill:none;vector-effect:non-scaling-stroke;stroke-linecap:round}
+.tn-bg{stroke:currentColor;stroke-width:2;opacity:.22}
+.tn-fill{stroke:var(--brand-thread);stroke-width:3;stroke-dasharray:1;stroke-dashoffset:1}
+.tn-knot{position:absolute;top:0;width:28px;height:44px;margin-left:-14px;display:grid;place-items:center}
+.tn-knot::after{content:"";width:9px;height:9px;border-radius:50%;background:var(--surface-paper);border:2px solid currentColor;opacity:.55;transition:transform .3s var(--ease-spring),background .2s,opacity .2s}
+.thread-nav[data-on="ink"] .tn-knot::after{background:var(--surface-ink)}
+.tn-knot.is-past::after{background:var(--brand-thread)!important;border-color:var(--brand-thread);opacity:1}
+.tn-knot.is-here::after{width:12px;height:12px;background:var(--brand-thread)!important;border-color:var(--brand-thread);opacity:1;transform:scale(1.25);box-shadow:0 0 0 4px color-mix(in srgb,var(--brand-thread) 25%,transparent)}
+.toast{bottom:calc(84px + env(safe-area-inset-bottom))}
+
+/* ---------- swipe decks ---------- */
+.deck{display:flex!important;flex-wrap:nowrap!important;grid-template-columns:none!important;gap:14px;overflow-x:auto;overflow-y:visible;scroll-snap-type:x mandatory;scroll-padding-inline:var(--gutter);margin-inline:calc(-1 * var(--gutter));padding:14px var(--gutter) 22px;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+.deck::-webkit-scrollbar{display:none}
+.deck>*{flex:0 0 82%;scroll-snap-align:start}
+.deck>*:last-child{margin-right:var(--gutter)}
+.deck-thread{display:flex;align-items:center;gap:12px;margin-top:2px}
+.deck-label{flex:none;font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase;opacity:.7}
+.deck-track{position:relative;flex:1;display:flex;justify-content:space-between;align-items:center;height:14px}
+.deck-track::before{content:"";position:absolute;left:0;right:0;top:50%;height:2px;margin-top:-1px;background:currentColor;opacity:.2;border-radius:2px}
+.deck-track i{position:absolute;left:0;right:0;top:50%;height:3px;margin-top:-1.5px;background:var(--brand-thread);border-radius:3px;transform-origin:left;transform:scaleX(.04);transition:transform .15s linear}
+.deck-track b{position:relative;width:10px;height:10px;border-radius:50%;background:var(--surface-paper);border:2px solid currentColor;opacity:.5;transition:background .2s,transform .3s var(--ease-spring),opacity .2s}
+.sec-ink .deck-track b,.konar .deck-track b,.person-moj .deck-track b{background:var(--surface-ink)}
+.deck-track b.is-on{background:var(--brand-thread);border-color:var(--brand-thread);opacity:1;transform:scale(1.15)}
+.case .deck-track b{background:var(--surface-raised)}
+
+/* ---------- hero ---------- */
+.hero{padding-bottom:96px}
+.hero-actions .btn{flex:1 1 auto}
+.scroll-hint{bottom:18px}
+
+/* ---------- the knot ---------- */
+.film-frame{margin-top:36px;margin-inline:calc(-1 * var(--gutter))}
+.film-frame .yt{border-inline:0}
+.film-credits{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;padding-inline:var(--gutter)}
+
+/* ---------- meet the two: a deck of two, paper then ink ---------- */
+.meet,.meet-top{background:var(--surface-paper)}
+.meet-head{padding-bottom:12px}
+.meet-pair{margin:4px -8px -8px}
+.meet-split{padding-top:6px}
+.meet-split>.person{flex-basis:86%;padding:18px 16px 28px;border-radius:var(--radius-lg);border:var(--stroke-outline) solid var(--on-paper-border-strong)}
+.person-jaz{background:var(--surface-raised)}
+.person-moj{background:var(--surface-ink);border-color:var(--surface-ink)!important}
+.person-jaz{transform:rotate(-1deg)}.person-moj{transform:rotate(1deg)}
+.person-photo{width:100%}
+.name-tag{font-size:17px;padding:10px 16px}
+.person-line{font-size:16px}
+.fly-cards{left:2%;top:26%}
+.meet .deck-thread{padding-inline:0}
+.meet>.quiz{margin:36px var(--gutter) var(--sec-pad);padding:28px 18px}
+.quiz-btns{flex-direction:column;align-items:stretch}
+.quiz-btns .chip{width:100%}
+
+/* ---------- how we think ---------- */
+.cards{margin-top:36px;perspective:none}
+.card-slot{perspective:1200px}
+.cards>.card-slot{flex-basis:80%}
+.card-slot:nth-child(2) .card{transform:rotate(2deg)}
+.card-slot:nth-child(2) .card[aria-pressed="true"]{transform:rotate(2deg) rotateY(180deg)}
+.card-slot:nth-child(2) .became{margin-top:0}
+.card-face{padding:18px 18px}
+.card-t{font-size:19px}
+.think-foot{margin:40px 0 0;width:auto;font-size:17px}
+
+/* ---------- worlds ---------- */
+.world-grid{margin-top:36px}
+.world-grid>.world{flex-basis:84%;aspect-ratio:4/5}
+.world:nth-child(even),.world:nth-child(even):hover{transform:rotate(.8deg)}
+.world-explainer .world-art{padding:14% 10% 34%}
+.phone{width:44%;top:10%}
+.phone-cap{font-size:11px}
+.soon{top:40%}
+
+/* ---------- konar ---------- */
+.konar{padding-top:calc(var(--sec-pad) + 24px)}
+.honey-edge{height:70px}
+.konar-film{margin-top:32px;margin-inline:calc(-1 * var(--gutter))}
+.konar-film .yt{border-inline:0}
+.konar-film .spritz{margin-right:var(--gutter)}
+.spritz-sub{padding-inline:var(--gutter)}
+.case{margin-top:56px;padding:26px 18px;margin-inline:-6px}
+.case-lead p{font-size:16px}
+.ingredients{margin-top:32px}
+.ingredients>.ing{flex-basis:70%}
+.ing:nth-child(even){transform:rotate(1.5deg)}
+.facts{grid-template-columns:1fr 1fr;margin-top:28px}
+.facts div{padding:14px 6px 0}
+.facts dd{font-size:26px}
+
+/* ---------- the cut ---------- */
+.monitor{margin-top:32px;aspect-ratio:4/5;max-height:none}
+.scene-info b{font-size:36px}
+.scene-info p{font-size:14px}
+.scene-drip{height:46%!important;width:14px}
+.scene-bars{height:42%;gap:12px;margin-bottom:30%}
+.scene-bars i{width:34px}
+.scene-short .phone{width:42%;margin-bottom:30%}
+.scene-teaser .soon{font-size:44px;margin-bottom:30%}
+.geek-stills{inset:6% 6% auto 6%;width:auto}
+.orbit-cut{width:82%}
+.timeline{height:88px}
+.track{gap:4px;padding:5px}
+.clip span{display:none}
+.cut-hint{text-align:left}
+
+/* ---------- receipt ---------- */
+.receipt-grid{gap:44px}
+.picks-pkg>.pick{flex-basis:78%}
+.pick-pkg label{min-height:100%}
+.picks-add{gap:10px}
+.picks-add label{padding:10px 14px;min-height:44px}
+.picks-add label small{display:none}
+.printer{max-width:none}
+.receipt{padding:30px 20px 38px}
+.r-head{font-size:30px}
+
+/* ---------- contact + footer ---------- */
+.contact-knot{height:140px;margin-top:20px}
+.footer{padding:56px 0 calc(110px + env(safe-area-inset-bottom))}
+.footer-grid{gap:22px}
+.footer .orbit-footer{width:200px}
+.footer-line{font-size:30px;max-width:11em}
+.footer-jaz{width:132px;right:6px;bottom:72px}
+.cursor-thread{display:none}
+
+@media (prefers-reduced-motion:reduce){
+  .thread-nav{transition:none}
+  .deck{scroll-behavior:auto}
+}
+
+/* decks sit in grid columns: let the column shrink instead of growing with the row */
+.receipt-copy,.receipt-grid>*,.case,.konar .wrap>*{min-width:0}
+.meet-split.deck{margin-inline:0}

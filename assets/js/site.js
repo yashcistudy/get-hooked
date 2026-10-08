@@ -155,6 +155,20 @@
 
   T.Spine(page, { startPoint: () => { const g = heroGeom(); return g.mobile ? null : [g.start[0], hero.offsetTop + g.start[1]]; } });
 
+  const isPhone = () => window.matchMedia('(max-width: 760px)').matches;
+
+  /* ---------- orbit catch: the logo moment (meet on phones, end of the cut, footer) ---------- */
+  const orbits = new Map();
+  $$('.orbit-slot').forEach((slot) => {
+    const o = window.Orbit ? window.Orbit.mount(slot, { onCatch: () => Sound.play('click') }) : null;
+    if (!o) return;
+    orbits.set(slot, o);
+    if (slot.classList.contains('orbit-cut')) { o.hide(); return; } // plays when the playhead hooks
+    o.hide();
+    T.onView(slot, () => o.play(), { threshold: 0.6 });
+    slot.addEventListener('click', () => o.play());
+  });
+
   /* ---------- meet the two ---------- */
   const jaz = $('.person-jaz'), moj = $('.person-moj');
   $('#jazPhoto').addEventListener('click', () => {
@@ -168,69 +182,53 @@
     setTimeout(() => moj.classList.remove('is-snapping'), 700);
   });
 
-  /* ---------- voice: are you a jaz or a moj? ---------- */
-  const VOICE = {
-    jaz: { sticker: 'you\'re a jaz.', note: 'You have a plan, a backup plan, and a colour-coded plan for the backup. The cards below are in your voice now.', share: 'send this to your moj' },
-    moj: { sticker: 'you\'re a moj.', note: 'You said "no" before you finished reading this. Respect. The cards below are in your voice now.', share: 'send this to your jaz' },
+  /* ---------- the quiz: what are you holding? -> who you need -> the receipt ---------- */
+  const ROUTE = {
+    jaz: { sticker: 'you need a <span class="j">j</span>az.', pkg: 'script', note: 'You have the idea. She turns it into scripts with hooks and a shot list you can film tomorrow.' },
+    moj: { sticker: 'you need a moj.', pkg: 'edit', note: 'You have the footage. He cuts it into shorts people finish watching, with captions and motion titles.' },
+    both: { sticker: 'you need both of us.', pkg: 'concept', note: 'Bring the deadline. We bring the idea, the script, the shoot and the cut. You approve things.' },
   };
-  function setVoice(v, announce) {
-    document.documentElement.dataset.voice = v;
-    $$('[data-voice-text]').forEach((el) => {
-      const next = el.dataset[v]; if (next == null || el.textContent === next) return;
-      if (T.reduced()) { el.textContent = next; return; }
-      el.animate([{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateY(-6px)' }], { duration: 140 }).finished.then(() => {
-        el.textContent = next;
-        el.animate([{ opacity: 0, transform: 'translateY(6px)' }, { opacity: 1, transform: 'none' }], { duration: 220, easing: 'cubic-bezier(.34,1.56,.64,1)' });
-      });
-    });
-    $$('[data-pick]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.pick === v)));
-    if (announce) {
-      const r = $('#quizResult'), st = $('#quizSticker');
-      r.hidden = false;
-      st.className = 'sticker is-' + v; st.textContent = VOICE[v].sticker;
-      if (v === 'jaz') st.innerHTML = 'you\'re a <span class="j">j</span>az.';
-      $('#quizNote').textContent = VOICE[v].note;
-      $('#quizShare').textContent = VOICE[v].share;
-      store.set('voice', v);
-      Sound.play(v === 'jaz' ? 'tick' : 'snap');
-    }
-  }
-  $$('[data-pick]').forEach((b) => b.addEventListener('click', () => setVoice(b.dataset.pick, true)));
-  $('#quizShare').addEventListener('click', async () => {
-    const v = document.documentElement.dataset.voice;
-    const text = v === 'jaz' ? 'I\'m a Jaz (I plan everything). Are you a Jaz or a Moj?' : 'I\'m a Moj (I doubt everything). Are you a Jaz or a Moj?';
-    const url = location.href.split('#')[0] + '#meet';
-    try {
-      if (navigator.share) await navigator.share({ title: 'hooked', text, url });
-      else { await navigator.clipboard.writeText(text + ' ' + url); toast('copied. go start an argument.'); }
-    } catch (e) { /* cancelled */ }
-  });
-  const savedVoice = store.get('voice');
-  if (savedVoice === 'moj' || savedVoice === 'jaz') setVoice(savedVoice, true);
+  let routed = null;
+  $$('[data-pick]').forEach((b) => b.addEventListener('click', () => {
+    const v = b.dataset.pick, r = ROUTE[v]; routed = r.pkg;
+    $$('[data-pick]').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    const st = $('#quizSticker'); st.className = 'sticker is-' + v; st.innerHTML = r.sticker;
+    $('#quizNote').textContent = r.note;
+    $('#quizResult').hidden = false;
+    Sound.play(v === 'moj' ? 'snap' : 'tick');
+    selectPackage(r.pkg, false);
+  }));
+  $('#quizGo').addEventListener('click', () => { if (routed) selectPackage(routed, true); });
 
-  /* ---------- how we think: flip, stamp, crumple, tie ---------- */
+  /* ---------- how we think: flip, see what it became, the bin ---------- */
   $$('.card').forEach((card) => {
+    const slot = card.closest('.card-slot'), became = $('.became', slot);
     card.addEventListener('click', () => {
       if (card.classList.contains('is-crumpled')) return;
       const flipped = card.getAttribute('aria-pressed') === 'true';
       card.setAttribute('aria-pressed', String(!flipped));
       Sound.play('tick');
-      if (card.classList.contains('card-doomed') && !flipped) {
+      if (card.classList.contains('card-doomed')) {
+        if (flipped) return;
         setTimeout(() => { card.classList.add('is-stamped'); Sound.play('thud'); }, 450);
         setTimeout(() => { card.classList.add('is-crumpled'); Sound.play('crumple'); }, 1500);
         setTimeout(() => {
           card.classList.remove('is-crumpled', 'is-stamped'); card.setAttribute('aria-pressed', 'false');
           toast('we fished it out of the bin. it\'s a reel now.');
+          slot.classList.add('is-made'); Sound.play('click');
         }, 3200);
+        return;
       }
+      if (!flipped) setTimeout(() => { slot.classList.add('is-made'); Sound.play('zip'); }, 420);
     });
+    if (became && became.tagName === 'BUTTON') became.addEventListener('click', () => openVideo(became.dataset.video, became.dataset.title, became.dataset.vertical));
   });
   const cardsEl = $('#cards');
   let tied = false;
   function doTie() {
     $$('.tie-layer', cardsEl).forEach((s) => s.remove());
     const [a, b] = $$('.card', cardsEl);
-    if (window.innerWidth <= 860) return; // stacked cards: no bow
+    if (window.innerWidth <= 860) return; // stacked or swiped cards: no bow
     T.tie(cardsEl, a, b, { delay: 300 }).then(() => Sound.play('zip'));
     tied = true;
   }
@@ -241,16 +239,18 @@
   const POSTER = {
     knot: (el) => {
       const s = T.svgEl('svg', { class: 'poster-thread', viewBox: '0 0 640 360', preserveAspectRatio: 'xMidYMid slice', 'aria-hidden': 'true' });
-      T.threadPath(s, T.smooth(T.knotPoints(470, 170, 80, 7, { turns: 4 })), { width: '3px' });
+      const p = T.threadPath(s, T.smooth(T.knotPoints(470, 175, 82, 7, { turns: 4 })), { width: '3px', hidden: true });
       el.prepend(s);
+      T.onView(el, () => T.drawOn(p, { duration: 1600 }));
     },
   };
+  const vid = (key, fallback) => (C.videos || {})[key] || (C.videos || {})[fallback || ''] || '';
   function buildPoster(yt) {
-    const key = yt.dataset.video, id = (C.videos || {})[key] || (C.videos || {})[yt.dataset.fallback || ''] || '';
+    const key = yt.dataset.video, id = vid(key, yt.dataset.fallback);
     const b = document.createElement('button');
     b.type = 'button'; b.className = 'yt-poster poster-' + (yt.dataset.poster || key);
     b.setAttribute('aria-label', (id ? 'play ' : '') + yt.dataset.title);
-    b.innerHTML = `<span class="play" aria-hidden="true"></span><b>${yt.dataset.poster === 'konar' ? 'konar.' : yt.dataset.title.split(',')[0].toLowerCase()}</b><small>${id ? 'play with sound' : 'film goes up here soon'}</small>`;
+    b.innerHTML = `<span class="play" aria-hidden="true"></span><b>${yt.dataset.poster === 'konar' ? 'konar.' : yt.dataset.title.split(',')[0].toLowerCase()}</b><small>${id ? 'play with sound' : 'in the edit. goes up here soon.'}</small>`;
     if (id) { const img = new Image(); img.alt = ''; img.loading = 'lazy'; img.src = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`; b.prepend(img); }
     else if (POSTER[yt.dataset.poster]) POSTER[yt.dataset.poster](b);
     b.addEventListener('click', () => play(yt, id));
@@ -266,14 +266,15 @@
   }
   $$('.yt').forEach(buildPoster);
 
-  // modal for the world tiles
+  // modal for tiles, cards and the timeline
   const modal = $('#modal'), mbox = $('.modal-box', modal), mbody = $('.modal-body', modal);
   let lastFocus = null;
   function openVideo(key, title, vertical, fallback) {
-    const id = (C.videos || {})[key] || (C.videos || {})[fallback || ''] || '';
+    const id = vid(key, fallback);
     if (!id) { toast('this one\'s still in the edit. moj says soon.'); Sound.play('snap'); return; }
     lastFocus = document.activeElement;
     mbody.innerHTML = '<div class="yt"></div>';
+    $('.yt', mbody).dataset.title = title || '';
     mbox.classList.toggle('is-vertical', !!vertical);
     play($('.yt', mbody), id);
     modal.hidden = false; $('.modal-close', modal).focus();
@@ -316,21 +317,28 @@
     }
   });
 
-  /* ---------- the cut: drag the playhead, hook at the end ---------- */
+  /* ---------- the cut: our work on a timeline, hook at the end ---------- */
   const tl = $('#timeline'), ph = $('#playhead'), scenes = $$('#monitor .scene');
-  const NAMES = ['product films', 'explainers', 'teasers & trailers', 'shorts & reels', 'hooked'];
+  const CLIPS = scenes.length - 1; // the last scene is the logo
+  const NAMES = ['konar', 'on the chart', 'teasers', 'clay date', 'geekbazi', 'hooked'];
+  const cutOrbit = orbits.get($('.orbit-cut'));
   let pos = 0, hooked = false, lastScene = 0;
   function setPos(v, fromUser) {
     pos = T.clamp(v);
     ph.style.left = (pos * 100) + '%';
-    const idx = pos >= 0.985 ? 4 : Math.min(3, Math.floor(pos * 4));
+    const idx = pos >= 0.985 ? CLIPS : Math.min(CLIPS - 1, Math.floor(pos * CLIPS));
     ph.setAttribute('aria-valuenow', String(Math.round(pos * 100)));
     ph.setAttribute('aria-valuetext', NAMES[idx]);
     scenes.forEach((s, i) => s.classList.toggle('is-on', i === idx));
-    if (idx !== lastScene && fromUser) Sound.play(idx === 4 ? 'click' : 'zip');
+    $$('.track .clip').forEach((c, i) => c.classList.toggle('is-on', i === idx));
+    if (idx !== lastScene && fromUser) Sound.play(idx === CLIPS ? 'whoosh' : 'zip');
     lastScene = idx;
-    const nowHooked = idx === 4;
-    if (nowHooked !== hooked) { hooked = nowHooked; tl.classList.toggle('is-hooked', hooked); if (hooked) toast('click. that\'s the link.'); }
+    const nowHooked = idx === CLIPS;
+    if (nowHooked !== hooked) {
+      hooked = nowHooked; tl.classList.toggle('is-hooked', hooked);
+      if (hooked && cutOrbit) cutOrbit.play();
+      if (hooked) toast('click. that\'s the link.');
+    }
   }
   function fromEvent(e) { const r = tl.getBoundingClientRect(); return (e.clientX - r.left) / r.width; }
   let dragging = false;
@@ -345,41 +353,68 @@
     if (e.key === 'Home') { setPos(0, true); e.preventDefault(); }
     if (e.key === 'End') { setPos(1, true); e.preventDefault(); }
   });
-  setPos(0.06);
-  // a little nudge the first time it's seen, so people know it moves
+  $$('.scene-play').forEach((b) => b.addEventListener('click', () => openVideo(b.dataset.video, b.dataset.title, b.dataset.vertical)));
+  setPos(0.04);
   T.onView(tl, () => {
     if (T.reduced()) return;
     const t0 = performance.now();
     (function nudge(now) {
       const k = (now - t0) / 1400; if (k > 1 || dragging) return;
-      setPos(0.06 + Math.sin(k * Math.PI) * 0.12);
+      setPos(0.04 + Math.sin(k * Math.PI) * 0.12);
       requestAnimationFrame(nudge);
     })(t0);
   }, { threshold: 0.8 });
 
-  /* ---------- the receipt ---------- */
-  const picks = $('#picks'), rLines = $('#rLines'), rTotal = $('#rTotal'), rNo = $('#rNo');
-  const items = (C.receipt || []).map((x) => Object.assign({}, x));
-  const money = (n) => '$' + n.toLocaleString('en-US');
-  items.forEach((it) => {
-    const li = document.createElement('li'); li.className = 'pick';
-    li.innerHTML = `<input type="checkbox" id="pick-${it.id}" ${it.on ? 'checked' : ''}><label for="pick-${it.id}"><b>${it.label}</b><small>${it.note}</small></label>`;
-    $('input', li).addEventListener('change', (e) => { it.on = e.target.checked; Sound.play('tick'); printReceipt(); });
+  /* ---------- the receipt: one package + add-ons ---------- */
+  const PK = (C.packages || []), AD = (C.addons || []);
+  const picks = $('#picks'), addEl = $('#addons'), rLines = $('#rLines'), rTotal = $('#rTotal'), rNo = $('#rNo'), rSmall = $('#rSmall');
+  const money = (n) => '$' + Math.round(n).toLocaleString('en-US');
+  let chosen = 'concept';
+  const addOn = new Set();
+  PK.forEach((p) => {
+    const li = document.createElement('li'); li.className = 'pick pick-pkg who-' + p.who;
+    li.innerHTML = `<input type="radio" name="pkg" id="pkg-${p.id}" value="${p.id}"><label for="pkg-${p.id}"><span class="pick-who">${p.who === 'both' ? 'moj + <span class="j">j</span>az' : p.who === 'jaz' ? '<span class="j">j</span>az' : 'moj'}</span><b>${p.label}</b><span class="pick-price">from ${money(p.price)}<small>${p.unit || ''}</small></span><small class="pick-note">${p.note}</small></label>`;
+    $('input', li).addEventListener('change', () => { chosen = p.id; Sound.play('tick'); printReceipt(); });
     picks.appendChild(li);
   });
-  let orderNo = 1;
+  AD.forEach((a) => {
+    const li = document.createElement('li'); li.className = 'pick pick-add';
+    li.innerHTML = `<input type="checkbox" id="add-${a.id}"><label for="add-${a.id}"><b>${a.label} <span class="pick-plus">${a.pct ? '+' + a.pct + '%' : '+' + money(a.flat)}${a.unit || ''}</span></b><small>${a.note}</small></label>`;
+    $('input', li).addEventListener('change', (e) => { e.target.checked ? addOn.add(a.id) : addOn.delete(a.id); Sound.play('tick'); printReceipt(); });
+    addEl.appendChild(li);
+  });
+  let orderNo = 1, receiptText = '';
   function printReceipt() {
-    const on = items.filter((i) => i.on);
-    rLines.innerHTML = '';
-    if (!on.length) { rLines.innerHTML = '<li class="is-empty">nothing yet. pick something.</li>'; }
-    on.forEach((it, i) => {
-      const li = document.createElement('li'); li.style.animationDelay = (i * 0.06) + 's';
-      li.innerHTML = `<span>${it.label}</span><span>${it.price == null ? 'quote' : 'from ' + money(it.price)}</span>`;
-      rLines.appendChild(li);
+    const p = PK.find((x) => x.id === chosen) || PK[0]; if (!p) return;
+    $$('input[name=pkg]').forEach((i) => { i.checked = i.value === p.id; });
+    const lines = [[p.label, 'from ' + money(p.price) + (p.unit || '')]];
+    let total = p.price;
+    AD.filter((a) => addOn.has(a.id)).forEach((a) => {
+      const v = a.pct ? p.price * a.pct / 100 : a.flat; total += v;
+      lines.push([a.label + (a.pct ? ' +' + a.pct + '%' : ''), '+' + money(v) + (a.unit || '')]);
     });
-    const allPriced = on.length && on.every((i) => i.price != null);
-    rTotal.textContent = !on.length ? '$0' : allPriced ? 'from ' + money(on.reduce((s, i) => s + i.price, 0)) : 'we\'ll quote it';
+    if (C.included) lines.push([C.included.label, 'free']);
+    rLines.innerHTML = '';
+    lines.forEach(([l, v], i) => {
+      const li = document.createElement('li'); li.style.animationDelay = (i * 0.06) + 's';
+      li.innerHTML = `<span>${l}</span><span>${v}</span>`; rLines.appendChild(li);
+    });
+    rTotal.textContent = 'from ' + money(total) + (p.unit || '');
+    rSmall.textContent = C.included ? `${C.included.label}: ${C.included.note}. launch prices, USD.` : 'launch prices, USD.';
     rNo.textContent = String(orderNo++).padStart(4, '0');
+    const paper = $('#receiptPaper'); paper.style.animation = 'none'; void paper.offsetWidth; paper.style.animation = '';
+    receiptText = lines.map(([l, v]) => `${l}: ${v}`).join('\n') + `\ntotal: from ${money(total)}${p.unit || ''}`;
+    $('#receiptField').value = receiptText;
+    const fr = $('#formReceipt'); fr.hidden = false; fr.innerHTML = `<b>on your receipt:</b> ${p.label}${addOn.size ? ' + ' + addOn.size + ' add-on' + (addOn.size > 1 ? 's' : '') : ''} · from ${money(total)}${p.unit || ''}`;
+  }
+  function selectPackage(id, go) {
+    chosen = id; printReceipt();
+    const li = $('#pkg-' + id) && $('#pkg-' + id).closest('li');
+    if (li) { li.classList.remove('is-pinged'); void li.offsetWidth; li.classList.add('is-pinged'); }
+    if (go) {
+      $('#receipt').scrollIntoView({ behavior: T.reduced() ? 'auto' : 'smooth' });
+      if (li && li.parentElement.scrollTo) setTimeout(() => li.parentElement.scrollTo({ left: li.offsetLeft - 16, behavior: 'smooth' }), 500);
+    }
   }
   printReceipt();
 
@@ -429,7 +464,7 @@
         return;
       }
     } else {
-      const body = `Name: ${data.get('name')}\nEmail: ${data.get('email')}\nScary date: ${data.get('deadline') || '-'}\n\n${data.get('knot')}`;
+      const body = `Name: ${data.get('name')}\nEmail: ${data.get('email')}\nScary date: ${data.get('deadline') || '-'}\n\n${data.get('knot')}\n\n${receiptText}`;
       location.href = `mailto:${C.email}?subject=${encodeURIComponent('a knot for hooked')}&body=${encodeURIComponent(body)}`;
       ok = true;
     }
@@ -437,6 +472,50 @@
     $('#replyLine').textContent = C.replyDays ? `we'll write back within ${C.replyDays} days.` : 'we\'ll write back soon.';
     $('#received').hidden = false;
   });
+
+  /* ---------- phones: swipe decks ---------- */
+  // each .deck becomes a thumb-swipe row on phones (CSS does the layout);
+  // here we add the little red thread under it that fills as you swipe
+  $$('.deck').forEach((deck) => {
+    const bar = document.createElement('div'); bar.className = 'deck-thread'; bar.setAttribute('aria-hidden', 'true');
+    const n = deck.children.length;
+    bar.innerHTML = `<span class="deck-label">${deck.dataset.deck || ''} · swipe</span><span class="deck-track"><i></i>${Array.from({ length: n }, () => '<b></b>').join('')}</span>`;
+    deck.after(bar);
+    const fill = $('i', bar), beads = $$('b', bar);
+    const update = () => {
+      const max = deck.scrollWidth - deck.clientWidth;
+      const t = max > 0 ? deck.scrollLeft / max : 0;
+      fill.style.transform = `scaleX(${Math.max(0.04, t)})`;
+      const k = Math.round(t * (n - 1));
+      beads.forEach((b, i) => b.classList.toggle('is-on', i <= k));
+    };
+    deck.addEventListener('scroll', () => requestAnimationFrame(update), { passive: true });
+    update();
+  });
+
+  /* ---------- phones: the thread nav (one knot per section) ---------- */
+  const tnav = $('#threadNav');
+  const secs = $$('main > section[data-label]');
+  tnav.innerHTML = `<span class="tn-label" id="tnLabel">hello</span><span class="tn-track"><svg class="tn-svg" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true"><path class="tn-bg" d="M1 10 C 12 6, 22 14, 34 10 S 56 6, 67 10 S 88 14, 99 10"/><path class="tn-fill" pathLength="1" d="M1 10 C 12 6, 22 14, 34 10 S 56 6, 67 10 S 88 14, 99 10"/></svg>${secs.map((s, i) => `<a class="tn-knot" href="#${s.id}" style="left:${(1 + i / (secs.length - 1) * 98).toFixed(2)}%" aria-label="${s.dataset.label}"></a>`).join('')}</span>`;
+  const tnFill = $('.tn-fill', tnav), tnLabel = $('#tnLabel'), tnKnots = $$('.tn-knot', tnav);
+  let tnLast = -1;
+  function tnUpdate() {
+    const H = document.documentElement.scrollHeight - window.innerHeight;
+    const t = H > 0 ? T.clamp(window.scrollY / H) : 0;
+    tnFill.style.strokeDashoffset = String(1 - t);
+    let cur = 0;
+    secs.forEach((s, i) => { if (s.getBoundingClientRect().top < window.innerHeight * 0.45) cur = i; });
+    if (cur !== tnLast) {
+      tnLast = cur; tnLabel.textContent = secs[cur].dataset.label;
+      tnKnots.forEach((k, i) => { k.classList.toggle('is-past', i < cur); k.classList.toggle('is-here', i === cur); });
+      tnav.dataset.on = secs[cur].dataset.theme;
+      if (!T.reduced()) tnLabel.animate([{ transform: 'translateY(6px) rotate(-3deg)', opacity: 0 }, { transform: 'none', opacity: 1 }], { duration: 260, easing: 'cubic-bezier(.34,1.56,.64,1)' });
+    }
+    tnav.classList.toggle('is-up', window.scrollY > window.innerHeight * 0.5 && !$('#contact').contains(document.activeElement));
+  }
+  window.addEventListener('scroll', () => requestAnimationFrame(tnUpdate), { passive: true });
+  tnKnots.forEach((k) => k.addEventListener('click', () => Sound.play('tick')));
+  tnUpdate();
 
   /* ---------- small threads everywhere ---------- */
   $$('.squiggle').forEach((el, i) => T.squiggle(el, { seed: 41 + i }));

@@ -145,10 +145,11 @@ button{font:inherit;color:inherit}
 .think{background:var(--surface-ink) url(../kit/dot-grid-on-ink-24px-960.svg) 0 0/480px}
 .cards{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,44px);margin-top:64px;perspective:1400px}
 .card{position:relative;aspect-ratio:3/2.1;border:0;padding:0;background:none;cursor:pointer;transform-style:preserve-3d;transition:transform var(--t-flip) var(--ease-spring);text-align:left;color:var(--on-paper-text)}
-.card:nth-child(1){transform:rotate(-3deg)}.card:nth-child(2){transform:rotate(2deg) translateY(18px)}.card:nth-child(3){transform:rotate(-1.5deg)}
-.card[aria-pressed="true"]:nth-child(1){transform:rotate(-3deg) rotateY(180deg)}
-.card[aria-pressed="true"]:nth-child(2){transform:rotate(2deg) translateY(18px) rotateY(180deg)}
-.card[aria-pressed="true"]:nth-child(3){transform:rotate(-1.5deg) rotateY(180deg)}
+.card{width:100%}
+.card-slot:nth-child(1) .card{transform:rotate(-3deg)}.card-slot:nth-child(2) .card{transform:rotate(2deg) translateY(18px)}.card-slot:nth-child(3) .card{transform:rotate(-1.5deg)}
+.card-slot:nth-child(1) .card[aria-pressed="true"]{transform:rotate(-3deg) rotateY(180deg)}
+.card-slot:nth-child(2) .card[aria-pressed="true"]{transform:rotate(2deg) translateY(18px) rotateY(180deg)}
+.card-slot:nth-child(3) .card[aria-pressed="true"]{transform:rotate(-1.5deg) rotateY(180deg)}
 .card-face{position:absolute;inset:0;display:flex;flex-direction:column;gap:10px;padding:22px 24px;background:var(--surface-raised) repeating-linear-gradient(transparent 0 31px,var(--neutral-300) 31px 32px) 0 62px/100% calc(100% - 62px) no-repeat;border:var(--stroke-outline) solid var(--on-paper-border-strong);border-radius:var(--radius-sm);backface-visibility:hidden;box-shadow:0 18px 30px -18px rgb(0 0 0 / .6)}
 .card-face::before{content:"";position:absolute;left:12px;right:12px;top:52px;height:2px;background:var(--red-300)}
 .card-back{transform:rotateY(180deg)}
@@ -163,7 +164,7 @@ button{font:inherit;color:inherit}
 @keyframes crumple{0%{}30%{transform:rotate(-1.5deg) scale(.9) skew(6deg,-4deg);filter:brightness(.92)}60%{transform:rotate(30deg) scale(.45) skew(-10deg,8deg);border-radius:40%}100%{transform:translate(120%,60vh) rotate(260deg) scale(.15);opacity:0}}
 .think-foot{margin:72px 0 0 auto;width:max-content;max-width:100%;padding:14px 22px;background:var(--surface-butter);color:var(--on-butter-text);font-family:var(--font-text);font-weight:700;font-size:clamp(18px,1.6vw,22px);line-height:1.3;text-transform:none;border-radius:var(--radius-sm);transform:rotate(-2deg)}
 .tie-layer{z-index:4}
-@media (max-width:860px){.cards{grid-template-columns:1fr;max-width:440px}.card:nth-child(2){transform:rotate(2deg)}.card[aria-pressed="true"]:nth-child(2){transform:rotate(2deg) rotateY(180deg)}}
+@media (max-width:860px) and (min-width:761px){.cards{grid-template-columns:1fr;max-width:440px}.card-slot:nth-child(2) .card{transform:rotate(2deg)}.card-slot:nth-child(2) .card[aria-pressed="true"]{transform:rotate(2deg) rotateY(180deg)}}
 
 /* ---------- the worlds ---------- */
 .world-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(18px,2.4vw,32px);margin-top:64px}
@@ -264,7 +265,11 @@ button{font:inherit;color:inherit}
 .monitor{position:relative;margin-top:56px;aspect-ratio:16/9;max-height:62vh;width:100%;background:var(--neutral-900);border:var(--stroke-outline) solid var(--neutral-800);overflow:hidden}
 .scene{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(1.04);transition:opacity .25s,transform .4s var(--ease-out)}
 .scene.is-on{opacity:1;transform:none}
-.scene b{position:absolute;left:5%;bottom:7%;font-family:var(--font-display);font-weight:400;font-size:var(--d-md);line-height:.96;text-transform:lowercase}
+.scene-info{position:absolute;left:5%;bottom:7%;right:5%;display:grid;justify-items:start;gap:6px;z-index:2}
+.scene-info b{font-family:var(--font-display);font-weight:400;font-size:var(--d-md);line-height:.96;text-transform:lowercase}
+.scene-info p{margin:0;font-size:15px;opacity:.85}
+.scene-play{margin-top:6px;min-height:44px;padding:8px 18px;border:0;border-radius:var(--radius-pill);background:var(--action-accent-bg);color:var(--action-accent-text);font-weight:700;font-size:15px;cursor:pointer;transition:transform var(--t-tap) var(--ease-spring)}
+.scene-play:hover{transform:rotate(-3deg) scale(1.06)}
 .scene-product{background:#0E0D11}
 .scene-drip{position:absolute;left:50%;top:0;width:18px;height:62%;background:var(--butter-400);border-radius:0 0 12px 12px;transform:translateX(-50%);animation:pour 2s ease-in-out infinite}
 @keyframes pour{0%,100%{height:56%}50%{height:66%}}
@@ -285,9 +290,12 @@ button{font:inherit;color:inherit}
 @keyframes wordin{to{transform:none;opacity:1}}
 .timeline{position:relative;margin-top:28px;height:96px;user-select:none;touch-action:none}
 .ruler{position:absolute;inset:0 0 auto;height:20px;background:repeating-linear-gradient(90deg,var(--neutral-600) 0 1.5px,transparent 1.5px 12px);mask:linear-gradient(#000 0 0) top/100% 8px no-repeat,repeating-linear-gradient(90deg,#000 0 1.5px,transparent 1.5px 60px) top/100% 20px no-repeat;-webkit-mask:linear-gradient(#000 0 0) top/100% 8px no-repeat,repeating-linear-gradient(90deg,#000 0 1.5px,transparent 1.5px 60px) top/100% 20px no-repeat}
-.track{position:absolute;left:0;right:0;top:34px;height:48px;display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:6px;background:var(--neutral-800);border-radius:var(--radius-sm)}
-.clip{display:block;border-radius:4px}
-.c1{background:var(--butter-400)}.c2{background:var(--red-300)}.c3{background:var(--neutral-500)}.c4{background:var(--surface-chroma)}
+.track{position:absolute;left:0;right:0;top:34px;height:48px;display:grid;grid-template-columns:repeat(5,1fr);gap:6px;padding:6px;background:var(--neutral-800);border-radius:var(--radius-sm)}
+.clip{position:relative;display:flex;align-items:center;padding:0 8px;border-radius:4px;font-style:normal;overflow:hidden;transition:transform var(--t-tap) var(--ease-spring),filter var(--t-tap)}
+.clip span{font-weight:700;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--on-paper-text)}
+.c1{background:var(--butter-400)}.c2{background:var(--red-300)}.c3{background:var(--neutral-500)}.c4{background:var(--surface-chroma)}.c5{background:var(--neutral-200)}
+.c3 span{color:var(--on-ink-text)}
+.clip.is-on{transform:translateY(-3px);box-shadow:0 0 0 2px var(--surface-paper)}
 .playhead{position:absolute;top:0;bottom:0;left:0;width:44px;margin-left:-22px;cursor:grab;outline-offset:0}
 .playhead:active{cursor:grabbing}
 .ph-line{position:absolute;left:21px;top:16px;bottom:0;width:3px;border-radius:3px;background:var(--brand-thread)}
@@ -303,7 +311,8 @@ button{font:inherit;color:inherit}
 /* ---------- the receipt ---------- */
 .receipt-grid{display:grid;grid-template-columns:1fr 420px;gap:clamp(32px,6vw,96px);align-items:start}
 .picks{list-style:none;padding:0;margin:40px 0 0;display:flex;flex-wrap:wrap;gap:12px}
-.pick input{position:absolute;opacity:0;pointer-events:none}
+.pick{position:relative}
+.pick input{position:absolute;left:8px;top:8px;opacity:0;pointer-events:none}
 .pick label{display:flex;flex-direction:column;gap:2px;min-height:48px;padding:12px 20px;border:var(--stroke-ui) solid var(--on-paper-border-strong);border-radius:var(--radius-md);background:var(--surface-raised);cursor:pointer;transition:transform var(--t-tap) var(--ease-spring),background var(--t-tap)}
 .pick label b{font-size:17px}
 .pick label small{font-size:14px;color:var(--on-paper-text-muted)}
@@ -383,3 +392,97 @@ button{font:inherit;color:inherit}
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
   [data-typeon] .ch{opacity:1;transform:none}
 }
+
+/* ================= v2: the knot film, live boards, routes, packages ================= */
+.nw{white-space:nowrap}
+
+/* the knot, right under the hero */
+.film-head{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,80px);align-items:end}
+.film-head .lead{max-width:38ch;margin:0}
+.film-frame{position:relative;margin-top:56px}
+.film-frame .yt{border-color:var(--neutral-800);box-shadow:0 30px 60px -30px rgb(0 0 0 / .8)}
+.film-credits{list-style:none;margin:20px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:10px 28px;font-size:15px;color:var(--on-ink-text-soft)}
+.film-credits b{color:var(--on-ink-text);margin-right:6px}
+@media (max-width:860px){.film-head{grid-template-columns:1fr}}
+
+/* the photos: the board is live type, sitting on the board they hold */
+.person-photo{container-type:inline-size}
+.ph{position:absolute;inset:0;transition:opacity .25s}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:bottom}
+.person-photo .ph img{transition:none}
+.person-photo:hover .ph-hover,.person-photo:focus-visible .ph-hover{opacity:1}
+.person-photo:hover .ph-default,.person-photo:focus-visible .ph-default{opacity:0}
+.board{position:absolute;left:calc(var(--x)*100%);top:calc(var(--y)*100%);width:calc(var(--w)*100%);height:calc(var(--h)*100%);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none}
+.board b{font-family:var(--font-display);font-weight:400;line-height:.96;text-transform:lowercase}
+.board small{font-weight:700;line-height:1.1;margin-top:.3em}
+.board-jaz{color:var(--on-butter-text);transform:rotate(-2deg)}
+.board-jaz b{font-size:15cqw}.board-jaz small{font-size:3.6cqw}
+.board-jaz .j{color:var(--on-butter-j)}
+.board-moj{color:var(--on-ink-text);transform:rotate(1deg)}
+.board-moj b{font-size:17cqw}.board-moj small{font-size:4.2cqw}
+.board-moj .j{color:var(--on-ink-j)}
+
+/* quiz: a third answer, and a sub line */
+.quiz-sub{margin:10px auto 0;max-width:44ch}
+.chip[aria-pressed="true"].chip-both{background:var(--surface-jaz);color:var(--on-jaz-text);border-color:var(--surface-jaz)}
+.sticker.is-both{background:var(--surface-jaz);color:var(--on-jaz-text)}
+.sticker.is-both .j{color:var(--on-jaz-text)}
+
+/* how we think: what each idea became */
+.card-slot{position:relative;display:grid;gap:18px;justify-items:start}
+.became{display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:8px 16px;border:0;border-radius:var(--radius-pill);background:var(--surface-paper);color:var(--on-paper-text);text-decoration:none;font-size:15px;cursor:pointer;opacity:0;visibility:hidden;transform:translateY(-10px) rotate(-4deg) scale(.8);transition:opacity .3s,transform .5s var(--ease-spring),visibility 0s .5s}
+.became span{color:var(--on-paper-text-muted)}
+.became b{font-weight:700}
+.card-slot:nth-child(2) .became{margin-top:18px}
+.card-slot.is-made .became{opacity:1;visibility:visible;transform:rotate(-2deg);transition:opacity .3s,transform .5s var(--ease-spring),visibility 0s}
+.became:hover{transform:rotate(1deg) scale(1.05)}
+
+/* the cut: geekbazi stills, the orbit catch at the end */
+.scene-geek{background:var(--neutral-950)}
+.geek-stills{position:absolute;inset:8% 6% 30% auto;display:flex;gap:4%;width:58%}
+.geek-stills img{width:48%;aspect-ratio:1;object-fit:cover;border:3px solid var(--surface-paper);border-radius:var(--radius-sm)}
+.geek-stills img:first-child{transform:rotate(-4deg)}.geek-stills img:last-child{transform:rotate(3deg) translateY(12%)}
+.orbit-slot{display:block;cursor:pointer}
+.orbit-svg{width:100%;height:auto;overflow:visible}
+.orbit-cut{width:min(62%,560px)}
+
+/* the receipt: pick a package, add things */
+.picks-k{margin:40px 0 0;font-weight:700;font-size:14px;letter-spacing:.08em;text-transform:uppercase}
+.picks-k+.picks{margin-top:14px}
+.picks-pkg{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.pick-pkg label{display:grid;grid-template-columns:1fr auto;grid-template-areas:"who price" "name name" "note note";gap:4px 12px;height:100%;padding:16px 18px}
+.pick-who{grid-area:who;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--on-paper-text-muted)}
+.pick-pkg label b{grid-area:name;font-family:var(--font-display);font-weight:400;font-size:clamp(26px,2.2vw,34px);line-height:.96;text-transform:lowercase}
+.pick-price{grid-area:price;font-weight:700;font-size:15px;white-space:nowrap}
+.pick-price small{font-size:13px;color:inherit}
+.pick-note{grid-area:note}
+.pick-pkg input:checked+label{background:var(--surface-butter);color:var(--on-butter-text)}
+.pick-pkg input:checked+label .j{color:var(--on-butter-j)}
+.pick-pkg input:checked+label b::before{content:none}
+.pick-plus{font-weight:400;color:var(--on-paper-text-muted)}
+.pick.is-pinged label{animation:ping .9s var(--ease-spring)}
+@keyframes ping{0%{transform:scale(1)}25%{transform:scale(1.06) rotate(-2deg);box-shadow:0 0 0 6px var(--brand-thread)}100%{transform:rotate(-1deg)}}
+.r-small{margin:10px 0 0;font-size:12px;line-height:1.4;color:var(--on-paper-text-muted);text-align:center}
+.r-go{display:flex;margin:22px 12px 0}
+.form-receipt{margin:0;padding:12px 16px;border:2px dashed var(--on-ink-border);border-radius:var(--radius-md);font-size:15px}
+.form-receipt b{color:var(--on-ink-link)}
+.footer .orbit-footer{width:240px}
+@media (max-width:1100px){.picks-pkg{grid-template-columns:1fr}}
+
+/* desktop has the spine; these belong to phones */
+.thread-nav,.deck-thread{display:none}
+
+/* the pair: the about banner, and the logo lands on the board they hold */
+.meet-head{display:grid;grid-template-columns:1fr 1.05fr;gap:clamp(24px,4vw,64px);align-items:end}
+.meet-pair{position:relative;margin:0 0 -56px;container-type:inline-size}
+.meet-pair img{width:100%;height:auto}
+.orbit-board{position:absolute;left:calc(var(--x)*100%);top:calc(var(--y)*100%);width:calc(var(--w)*100%);height:calc(var(--h)*100%);display:grid;place-items:center;transform:rotate(-1.5deg)}
+.orbit-board .orbit-svg{width:84%}
+@media (max-width:860px){.meet-head{grid-template-columns:1fr}.meet-pair{margin:8px 0 -24px}}
+
+/* footer: jaz with the cards, standing in the corner */
+.footer{overflow:hidden}
+.footer-jaz{position:absolute;right:clamp(8px,4vw,64px);bottom:-38%;width:clamp(150px,15vw,230px);height:auto;transform:rotate(3deg);pointer-events:none;z-index:1}
+.footer-grid{position:relative;z-index:2}
+@media (min-width:861px){.footer .footer-meta{margin-right:clamp(170px,17vw,260px)}}
+@media (max-width:860px){.footer-jaz{bottom:-24%;width:150px}}
