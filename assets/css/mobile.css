@@ -4,7 +4,7 @@
    as you scroll. Long rows become swipe decks with their own little thread. */
 
 :root{--gutter:18px;--sec-pad:76px;--d-xl:clamp(50px,14vw,64px);--d-lg:clamp(42px,11.5vw,54px);--d-md:clamp(28px,7.6vw,36px)}
-body{padding-bottom:calc(84px + env(safe-area-inset-bottom))}
+body{padding-bottom:0;background:var(--neutral-950)}
 .spine{display:none}
 .lead{font-size:18px}
 
@@ -42,6 +42,7 @@ body{padding-bottom:calc(84px + env(safe-area-inset-bottom))}
 
 /* ---------- hero ---------- */
 .hero{padding-bottom:96px}
+.hero-copy{padding-top:min(60vw,250px)}
 .hero-actions .btn{flex:1 1 auto}
 .scroll-hint{bottom:18px}
 
@@ -53,7 +54,6 @@ body{padding-bottom:calc(84px + env(safe-area-inset-bottom))}
 /* ---------- meet the two: a deck of two, paper then ink ---------- */
 .meet,.meet-top{background:var(--surface-paper)}
 .meet-head{padding-bottom:12px}
-.meet-pair{margin:4px -8px -8px}
 .meet-split{padding-top:6px}
 .meet-split>.person{flex-basis:86%;padding:18px 16px 28px;border-radius:var(--radius-lg);border:var(--stroke-outline) solid var(--on-paper-border-strong)}
 .person-jaz{background:var(--surface-raised)}
@@ -64,9 +64,8 @@ body{padding-bottom:calc(84px + env(safe-area-inset-bottom))}
 .person-line{font-size:16px}
 .fly-cards{left:2%;top:26%}
 .meet .deck-thread{padding-inline:0}
-.meet>.quiz{margin:36px var(--gutter) var(--sec-pad);padding:28px 18px}
-.quiz-btns{flex-direction:column;align-items:stretch}
-.quiz-btns .chip{width:100%}
+.meet-split .person{padding-bottom:28px}
+.meet{padding-bottom:var(--sec-pad)}
 
 /* ---------- how we think ---------- */
 .cards{margin-top:36px;perspective:none}
@@ -82,6 +81,9 @@ body{padding-bottom:calc(84px + env(safe-area-inset-bottom))}
 /* ---------- worlds ---------- */
 .world-grid{margin-top:36px}
 .world-grid>.world{flex-basis:84%;aspect-ratio:4/5}
+.world-text{left:18px;right:18px;bottom:18px}
+.world-play{top:16px;bottom:auto;right:16px}
+.world-desc{font-size:14px}
 .world:nth-child(even),.world:nth-child(even):hover{transform:rotate(.8deg)}
 .world-explainer .world-art{padding:14% 10% 34%}
 .phone{width:44%;top:10%}
@@ -132,12 +134,11 @@ body{padding-bottom:calc(84px + env(safe-area-inset-bottom))}
 .r-head{font-size:30px}
 
 /* ---------- contact + footer ---------- */
-.contact-knot{height:140px;margin-top:20px}
+.contact-knot{left:34%;top:-22%;width:70%;height:42%}
 .footer{padding:56px 0 calc(110px + env(safe-area-inset-bottom))}
 .footer-grid{gap:22px}
 .footer .orbit-footer{width:200px}
 .footer-line{font-size:30px;max-width:11em}
-.footer-jaz{width:132px;right:6px;bottom:72px}
 .cursor-thread{display:none}
 
 @media (prefers-reduced-motion:reduce){
@@ -148,3 +149,24 @@ body{padding-bottom:calc(84px + env(safe-area-inset-bottom))}
 /* decks sit in grid columns: let the column shrink instead of growing with the row */
 .receipt-copy,.receipt-grid>*,.case,.konar .wrap>*{min-width:0}
 .meet-split.deck{margin-inline:0}
+
+/* ---------- v3 on phones ---------- */
+.nav{padding:10px var(--gutter)}
+.hero-still{margin-top:44px;width:100%}
+.still-tag{right:-4px;bottom:14px;font-size:14px}
+.still-bg{box-shadow:6px 6px 0 var(--surface-ink)}
+.knot-note{font-size:14px}
+.hero-facts{gap:6px 16px;font-size:14px}
+.included{padding:16px;transform:none}
+.included ul{gap:6px 14px;font-size:15px}
+.picker{padding:16px}
+.picker-btns .chip{flex:1 1 auto}
+.mid-actions .btn-big{width:100%}
+.series li{padding:12px 0}
+.series b{font-size:22px}
+.phone-mock{transform:none;box-shadow:8px 8px 0 var(--surface-jaz);margin-top:8px}
+.social-links .btn{flex:1 1 auto}
+.contact-side{gap:28px}
+.contact-jaz{width:58%;margin-top:28px}
+.next-steps{margin-top:28px}
+.mid-cta{background-size:auto 110%}

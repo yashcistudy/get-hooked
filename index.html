@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>hooked · a content studio by moj &amp; jaz</title>
-<meta name="description" content="Two people, one red thread. Moj and Jaz turn messy briefs into product films, explainers, teasers and reels that sell.">
+<title>hooked · video studio for brands · moj &amp; jaz</title>
+<meta name="description" content="Product films, explainers, teasers and reels for brands. Moj and Jaz write, shoot, edit and animate in their own studio. Launch prices from $150.">
 <meta name="theme-color" content="#F6F1E7">
 <link rel="icon" href="assets/brand/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="assets/brand/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="assets/brand/favicon-180.png">
 <meta property="og:type" content="website">
 <meta property="og:title" content="hooked · send us your knot">
-<meta property="og:description" content="Two people, one red thread. We untangle your brief and cut it into a story that sells.">
+<meta property="og:description" content="Product films, explainers, teasers and reels for brands, by Moj and Jaz.">
 <meta property="og:image" content="https://yashcistudy.github.io/get-hooked/assets/img/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -25,50 +25,65 @@
 <body>
 <a class="skip" href="#main">skip to the good part</a>
 
-<!-- ============ NAV ============ -->
+<!-- ============ NAV (always on top) ============ -->
 <header class="nav" id="nav">
   <a class="nav-logo" href="#top" aria-label="hooked, back to the top">
     <img class="logo-paper" src="assets/brand/wordmark-on-paper.svg" alt="hooked" width="613" height="173">
     <img class="logo-ink" src="assets/brand/wordmark-on-ink.svg" alt="" width="613" height="173" aria-hidden="true">
   </a>
   <nav class="nav-links" aria-label="sections">
-    <a href="#film">the knot</a>
-    <a href="#meet">the two</a>
-    <a href="#cut">our work</a>
-    <a href="#konar">konar</a>
+    <a href="#film">our film</a>
+    <a href="#worlds">what we make</a>
+    <a href="#cut">work</a>
     <a href="#receipt">prices</a>
+    <a href="#meet">about us</a>
   </nav>
   <button class="sound-toggle" id="sound" type="button" aria-pressed="false" title="sound">
     <span class="sound-bars" aria-hidden="true"><i></i><i></i><i></i></span><span class="sound-label">sound off</span>
   </button>
-  <a class="btn btn-accent nav-cta" href="#contact"><span class="long">send us your knot</span><span class="short">send your knot</span></a>
+  <a class="btn btn-accent nav-cta" href="#contact"><span class="long">send your brief</span><span class="short">send brief</span></a>
 </header>
 
 <main id="main" class="page">
 
-<!-- ============ HERO · the knot ============ -->
-<section class="sec sec-paper hero" id="top" data-theme="paper" data-label="hello" data-spine="0.035 1">
+<!-- ============ HERO · what we do, and who ============ -->
+<section class="sec sec-paper hero" id="top" data-theme="paper" data-label="hello" data-tn data-spine="0.035 1">
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <p class="kicker">content studio · moj &amp; <span class="j">j</span>az</p>
-      <h1 class="display" data-typeon>your brief<br>arrives like <span class="nw">this.</span></h1>
-      <p class="lead">Send us the mess. We send back a story that sells.</p>
+      <p class="kicker">video studio for brands · moj &amp; <span class="j">j</span>az</p>
+      <h1 class="display" data-typeon>we turn messy<br>briefs into videos<br>that <span class="nw">sell.</span></h1>
+      <p class="lead">Product films, explainers, teasers and reels. We write the script, shoot it in our studio, edit it, animate it and hand you every format you need.</p>
       <div class="hero-actions">
-        <a class="btn btn-accent" href="#contact">send us your knot</a>
-        <a class="btn btn-ghost" href="#film" id="watchKnot">watch the knot</a>
+        <a class="btn btn-accent" href="#contact">send your brief</a>
+        <a class="btn btn-ghost" href="#receipt">see prices</a>
       </div>
+      <ul class="hero-facts" aria-label="in short">
+        <li><b>from $150</b> launch prices</li>
+        <li><b>2 rounds</b> of revisions</li>
+        <li><b>remote</b> any time zone</li>
+      </ul>
     </div>
+    <figure class="hero-still">
+      <a class="still-frame" href="#film" aria-label="watch The Knot, our two-minute film">
+        <span class="still-bg" aria-hidden="true"></span>
+        <img src="assets/img/pair.webp" alt="Jaz and Moj holding a board with the hooked logo" width="1430" height="1333" fetchpriority="high">
+        <span class="orbit-slot orbit-board" data-orbit="paper" style="--x:.1699;--y:.4081;--w:.3434;--h:.3563" aria-hidden="true"></span>
+        <span class="still-tag"><span class="play-dot" aria-hidden="true"></span>watch our film · 2 min</span>
+      </a>
+      <figcaption class="still-cap">moj &amp; <span class="j">j</span>az, the whole studio</figcaption>
+    </figure>
+    <p class="knot-note" id="knotNote" aria-hidden="true">your brief,<br>probably</p>
     <div class="hero-knot" id="heroKnot" aria-hidden="true"></div>
   </div>
   <p class="scroll-hint" aria-hidden="true"><span>pull the thread</span><svg viewBox="0 0 24 40"><path d="M12 3v30m-7-7 7 7 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></p>
 </section>
 
 <!-- ============ THE KNOT · the film ============ -->
-<section class="sec sec-ink film" id="film" data-theme="ink" data-label="the knot" data-spine="0.035 0, 0.035 1">
+<section class="sec sec-ink film" id="film" data-theme="ink" data-label="our film" data-tn data-spine="0.035 0, 0.035 1">
   <div class="wrap">
     <div class="film-head">
       <h2 class="display">this is how<br>we untangle.</h2>
-      <p class="lead">One brief, two people, one red thread. The Knot is our whole process in one film. Watch it before you write to us.</p>
+      <p class="lead">The Knot is a two-minute film about how we work: a messy brief comes in, a finished video goes out. It's the quickest way to see what we make.</p>
     </div>
     <div class="film-frame">
       <div class="yt" data-video="knot" data-title="The Knot, a hooked showcase film" data-poster="knot"></div>
@@ -76,130 +91,131 @@
         <li><b>script</b> jaz</li>
         <li><b>camera</b> moj</li>
         <li><b>edit + sound</b> moj</li>
-        <li><b>motion + thread</b> jaz</li>
+        <li><b>motion design</b> jaz</li>
       </ul>
     </div>
   </div>
 </section>
 
-<!-- ============ MEET THE TWO ============ -->
-<section class="sec meet" id="meet" data-theme="paper" data-label="the two" data-spine="0.035 0, 0.035 0.3, 0.25 0.42, loop, 0.5 0.5, 0.75 0.56, 0.97 0.72, 0.97 1">
-  <div class="meet-top">
-    <div class="meet-head wrap">
-      <div class="meet-copy">
-        <h2 class="display">two people.<br>one red thread.</h2>
-        <p class="lead">She opens things up. He closes them down. The work is what survives between them.</p>
-      </div>
-      <figure class="meet-pair">
-        <img src="assets/img/pair.webp" alt="Jaz holding a board with the hooked logo while Moj points at it" width="1600" height="1067" loading="lazy">
-        <div class="orbit-slot orbit-board" data-orbit="paper" style="--x:.1425;--y:.4086;--w:.2431;--h:.3562" aria-hidden="true" title="play it again"></div>
-      </figure>
-    </div>
-  </div>
-  <div class="meet-split deck" data-deck="the two">
-    <article class="person person-jaz" data-theme="paper">
-      <button class="person-photo" type="button" id="jazPhoto" aria-label="Jaz pulls the thread">
-        <span class="plate plate-red" aria-hidden="true"></span>
-        <span class="ph ph-default"><img src="assets/img/jaz-default.webp" alt="Jaz holding a butter-yellow board that says jaz, the untangler" width="1067" height="1600" loading="lazy"><span class="board board-jaz" style="--x:.537;--y:.368;--w:.403;--h:.319" aria-hidden="true"><b><span class="j">j</span>az</b><small>the untangler</small></span></span>
-        <span class="ph ph-hover" aria-hidden="true"><img src="assets/img/jaz-hover.webp" alt="" width="1067" height="1600" loading="lazy"><span class="board board-jaz" style="--x:.545;--y:.366;--w:.395;--h:.322"><b><span class="j">j</span>az</b><small>the untangler</small></span></span>
-        <span class="fly-cards" aria-hidden="true"><i>idea</i><i>hook</i><i>script</i></span>
-      </button>
-      <p class="name-tag tag-jaz">script · design · motion</p>
-      <p class="person-line">Research, scripts, design and the thread you keep seeing. Pulls until the idea falls out.</p>
-    </article>
-    <article class="person person-moj" data-theme="ink">
-      <button class="person-photo" type="button" id="mojPhoto" aria-label="Moj snaps his fingers">
-        <span class="plate plate-green" aria-hidden="true"></span>
-        <span class="ph ph-default"><img src="assets/img/moj-default.webp" alt="Moj holding an ink board that says moj, the cutter" width="1067" height="1600" loading="lazy"><span class="board board-moj" style="--x:.17;--y:.505;--w:.637;--h:.33" aria-hidden="true"><b>mo<span class="j">j</span></b><small>the cutter</small></span></span>
-        <span class="ph ph-hover" aria-hidden="true"><img src="assets/img/moj-hover.webp" alt="" width="1067" height="1600" loading="lazy"><span class="board board-moj" style="--x:.116;--y:.486;--w:.63;--h:.33"><b>mo<span class="j">j</span></b><small>the cutter</small></span></span>
-        <span class="flash" aria-hidden="true"></span>
-      </button>
-      <p class="name-tag tag-moj">camera · edit · sound</p>
-      <p class="person-line">Shoots it, cuts it, says no to the boring parts. Then makes the yes look good.</p>
-    </article>
-  </div>
-  <div class="quiz wrap" id="quiz">
-    <h3 class="display quiz-q">what are you holding?</h3>
-    <p class="quiz-sub">Pick one. We'll tell you who you need and what it costs.</p>
-    <div class="quiz-btns" role="group" aria-label="what are you holding">
-      <button class="chip chip-jaz" type="button" data-pick="jaz" aria-pressed="false">an idea, no footage</button>
-      <button class="chip chip-moj" type="button" data-pick="moj" aria-pressed="false">footage, no time</button>
-      <button class="chip chip-both" type="button" data-pick="both" aria-pressed="false">a deadline. that's it.</button>
-    </div>
-    <div class="quiz-result" id="quizResult" aria-live="polite" hidden>
-      <p class="sticker" id="quizSticker"></p>
-      <p class="quiz-note" id="quizNote"></p>
-      <a class="btn btn-small btn-accent" href="#receipt" id="quizGo">put it on the receipt</a>
-    </div>
-  </div>
-</section>
-
-<!-- ============ HOW WE THINK ============ -->
-<section class="sec sec-ink think" id="think" data-theme="ink" data-label="how we think" data-spine="0.97 0, 0.97 0.38, 0.5 0.56, 0.03 0.62, 0.03 1">
+<!-- ============ WHAT WE MAKE ============ -->
+<section class="sec sec-paper worlds" id="worlds" data-theme="paper" data-label="what we make" data-tn data-spine="0.035 0, 0.035 0.3, 0.5 0.62, 0.97 0.8, loop, 0.97 1">
   <div class="wrap">
-    <h2 class="display">how we think</h2>
-    <p class="lead">Jaz pitches. Moj says no. What survives gets made. These three are real, and every one became a film. Flip them.</p>
-    <div class="cards deck" id="cards" data-deck="ideas">
-      <div class="card-slot">
-        <button class="card" type="button" aria-pressed="false" data-card="1">
-          <span class="card-face card-front"><b class="card-k">idea one · jaz</b><span class="card-t">we film a jar of honey like a perfume ad.</span><em class="card-hint">tap for moj's reply</em></span>
-          <span class="card-face card-back"><b class="card-k">moj</b><span class="card-t">budget?</span><em class="card-hint">"one spoon." he liked it.</em></span>
-        </button>
-        <a class="became" href="#konar" data-became="1"><span>it became</span><b>konar →</b></a>
-      </div>
-      <div class="card-slot">
-        <button class="card" type="button" aria-pressed="false" data-card="2">
-          <span class="card-face card-front"><b class="card-k">idea two · jaz</b><span class="card-t">a finance explainer, but you're literally on the chart.</span><em class="card-hint">tap for moj's reply</em></span>
-          <span class="card-face card-back"><b class="card-k">moj</b><span class="card-t">i'm always on the chart.</span><em class="card-hint">he sighed. then he got on it.</em></span>
-        </button>
-        <button class="became" type="button" data-became="2" data-video="chart" data-title="On the Chart, a finance explainer"><span>it became</span><b>on the chart ▶</b></button>
-      </div>
-      <div class="card-slot">
-        <button class="card card-doomed" type="button" aria-pressed="false" data-card="3">
-          <span class="card-face card-front"><b class="card-k">idea three · jaz</b><span class="card-t">a date video where we-</span><em class="card-hint">tap. bravely.</em></span>
-          <span class="card-face card-back"><b class="card-k">moj</b><span class="card-t">no.</span><em class="card-hint">it went in the bin.</em></span>
-          <span class="stamp" aria-hidden="true">no.</span>
-        </button>
-        <button class="became" type="button" data-became="3" data-video="short" data-vertical="1" data-title="Clay date, a reel"><span>it became</span><b>a reel anyway ▶</b></button>
-      </div>
+    <div class="sec-head">
+      <h2 class="display">four kinds of video.<br>one studio.</h2>
+      <p class="lead">Pick the one that fits your launch, or mix them. Tap a tile to watch one we made.</p>
     </div>
-    <p class="think-foot">two out of three got made.<br>then the third one did too.</p>
-  </div>
-</section>
-
-<!-- ============ THE WORLDS ============ -->
-<section class="sec sec-paper worlds" id="worlds" data-theme="paper" data-label="what we make" data-spine="0.03 0, 0.03 0.32, 0.5 0.6, 0.97 0.8, loop, 0.97 1">
-  <div class="wrap">
-    <h2 class="display">four worlds.<br>one thread.</h2>
-    <p class="lead">Product films, explainers, teasers and reels. Same two people, same thread. Tap one to watch.</p>
-    <div class="world-grid deck" id="worldGrid" data-deck="worlds">
+    <div class="world-grid deck" id="worldGrid" data-deck="videos">
       <button class="world world-product" type="button" data-video="product" data-fallback="konar" data-title="product films">
         <span class="world-art" aria-hidden="true">
           <svg viewBox="0 0 640 360" preserveAspectRatio="none"><path class="drip" d="M0 0H640V96C604 96 600 124 600 160C600 196 566 202 558 166C552 138 546 106 508 106C480 106 472 226 442 228C412 230 414 152 395 124C376 96 338 100 320 134C306 158 312 192 290 194C268 196 270 134 246 116C218 96 180 116 170 144C160 172 150 180 136 176C118 170 128 124 96 106C78 96 60 98 0 98Z" fill="#F5C84C"/><circle class="drop" cx="442" cy="270" r="13" fill="#F5C84C"/></svg>
         </span>
-        <span class="world-label">product films</span><span class="world-play" aria-hidden="true"></span>
+        <span class="world-text"><span class="world-label">product films</span><span class="world-desc">Your product as the hero. For launches, ads and shop pages.</span></span><span class="world-play" aria-hidden="true"></span>
       </button>
       <button class="world world-explainer" type="button" data-video="explainer" data-fallback="chart" data-title="explainers">
         <span class="world-art" aria-hidden="true"><i class="bar"></i><i class="bar"></i><i class="bar"></i><i class="bar bar-top"></i><i class="bar"></i></span>
-        <span class="world-label">explainers</span><span class="world-play" aria-hidden="true"></span>
+        <span class="world-text"><span class="world-label">explainers</span><span class="world-desc">A hard idea made simple, with a face people trust and motion graphics.</span></span><span class="world-play" aria-hidden="true"></span>
       </button>
       <button class="world world-teaser" type="button" data-video="teaser" data-title="teasers &amp; trailers">
         <span class="world-art" aria-hidden="true"><i class="glitch g1"></i><i class="glitch g2"></i><i class="glitch g3"></i><b class="soon" data-text="coming soon">coming soon</b></span>
-        <span class="world-label">teasers &amp; trailers</span><span class="world-play" aria-hidden="true"></span>
+        <span class="world-text"><span class="world-label">teasers &amp; trailers</span><span class="world-desc">Short, dark and fast. Made to make people wait for your launch.</span></span><span class="world-play" aria-hidden="true"></span>
       </button>
       <button class="world world-short" type="button" data-video="short" data-vertical="1" data-title="shorts &amp; reels">
         <span class="world-art" aria-hidden="true"><span class="phone"><span class="phone-cap">clay date. loser cleans.</span></span></span>
-        <span class="world-label">shorts &amp; reels</span><span class="world-play" aria-hidden="true"></span>
+        <span class="world-text"><span class="world-label">shorts &amp; reels</span><span class="world-desc">Vertical videos for Instagram, TikTok and YouTube that people watch to the end.</span></span><span class="world-play" aria-hidden="true"></span>
       </button>
+    </div>
+    <div class="included">
+      <p class="included-k">every video comes with</p>
+      <ul>
+        <li>a script</li><li>the shoot</li><li>the edit</li><li>sound design</li><li>motion graphics</li><li>captions</li><li>16:9, 9:16 and 1:1</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE CUT · our work ============ -->
+<section class="sec sec-ink cut" id="cut" data-theme="ink" data-label="our work" data-tn data-spine="0.97 0, 0.97 0.3, 0.5 0.5, 0.035 0.62, 0.035 1">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="display">the cut</h2>
+      <p class="lead">Everything we've made so far, on one timeline. Drag the red playhead, then hit play.</p>
+    </div>
+    <div class="monitor" id="monitor" aria-live="polite">
+      <div class="scene scene-product is-on">
+        <span class="scene-drip"></span>
+        <div class="scene-info"><b>konar</b><p>product film · Dastan honey</p><button class="scene-play" type="button" data-video="konar" data-title="Konar">play ▶</button></div>
+      </div>
+      <div class="scene scene-explainer">
+        <span class="scene-bars"><i></i><i></i><i></i><i></i></span>
+        <div class="scene-info"><b>on the chart</b><p>finance explainer · Moj on green screen</p><button class="scene-play" type="button" data-video="chart" data-title="On the Chart">play ▶</button></div>
+      </div>
+      <div class="scene scene-teaser">
+        <b class="soon" data-text="coming soon">coming soon</b>
+        <div class="scene-info"><b>teasers</b><p>dark, fast, a hard cut at the end</p><button class="scene-play" type="button" data-video="teaser" data-title="Teasers and trailers">play ▶</button></div>
+      </div>
+      <div class="scene scene-short">
+        <span class="phone"><span class="phone-cap">i'm already lost.</span></span>
+        <div class="scene-info"><b>clay date</b><p>a reel · the idea Moj said no to</p><button class="scene-play" type="button" data-video="short" data-vertical="1" data-title="Clay date">play ▶</button></div>
+      </div>
+      <div class="scene scene-geek">
+        <span class="geek-stills"><img src="assets/img/work-ticket.webp" alt="" loading="lazy" width="1200" height="1200"><img src="assets/img/work-clans.webp" alt="" loading="lazy" width="1200" height="1200"></span>
+        <div class="scene-info"><b>geekbazi</b><p>board game reviews · on camera, shot and cut in-house</p><button class="scene-play" type="button" data-video="geekbazi" data-title="A Geekbazi review">play ▶</button></div>
+      </div>
+      <div class="scene scene-logo"><div class="orbit-slot orbit-cut" data-orbit="ink" aria-hidden="true"></div></div>
+    </div>
+    <div class="timeline" id="timeline">
+      <div class="ruler" aria-hidden="true"></div>
+      <div class="track" aria-hidden="true"><i class="clip c1"><span>konar</span></i><i class="clip c2"><span>on the chart</span></i><i class="clip c3"><span>teasers</span></i><i class="clip c4"><span>clay date</span></i><i class="clip c5"><span>geekbazi</span></i></div>
+      <div class="playhead" id="playhead" role="slider" tabindex="0" aria-label="playhead" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="konar">
+        <span class="ph-line"></span><span class="ph-handle"></span>
+      </div>
+    </div>
+    <p class="cut-hint" aria-hidden="true">drag it to the end. something hooks.</p>
+  </div>
+</section>
+
+<!-- ============ PRICES ============ -->
+<section class="sec sec-paper receipt-sec" id="receipt" data-theme="paper" data-label="prices" data-tn data-spine="0.035 0, 0.035 0.9, 0.5 0.95, loop, 0.97 0.93, 0.97 1">
+  <div class="wrap receipt-grid">
+    <div class="receipt-copy">
+      <h2 class="display">no surprises.</h2>
+      <p class="lead">Launch prices in USD. Pick a package, add what you need, and the receipt does the maths. We confirm the final quote after we read your brief.</p>
+      <div class="picker" id="picker">
+        <p class="picks-k">not sure? where's your project at?</p>
+        <div class="picker-btns" role="group" aria-label="where's your project at">
+          <button class="chip" type="button" data-route="idea" aria-pressed="false">just an idea</button>
+          <button class="chip" type="button" data-route="footage" aria-pressed="false">footage, no time</button>
+          <button class="chip" type="button" data-route="launch" aria-pressed="false">a product and a date</button>
+          <button class="chip" type="button" data-route="big" aria-pressed="false">one big launch film</button>
+        </div>
+        <p class="picker-note" id="pickerNote" aria-live="polite"></p>
+      </div>
+      <p class="picks-k">1 · pick a package</p>
+      <ul class="picks picks-pkg deck" id="picks" data-deck="packages"></ul>
+      <p class="picks-k">2 · add if you like</p>
+      <ul class="picks picks-add" id="addons"></ul>
+    </div>
+    <div class="printer" aria-live="polite">
+      <div class="printer-slot" aria-hidden="true"></div>
+      <div class="receipt" id="receiptPaper">
+        <p class="r-head">hooked · studio receipt</p>
+        <p class="r-sub">order no. <span id="rNo">0001</span> · made by moj &amp; jaz</p>
+        <ul class="r-lines" id="rLines"></ul>
+        <p class="r-total"><span>total</span><b id="rTotal">$0</b></p>
+        <p class="r-small" id="rSmall">launch prices · USD</p>
+        <p class="r-thanks">thank you for your knot.<br>come again.</p>
+        <svg class="r-thread" viewBox="0 0 200 20" aria-hidden="true"><path d="M4 12C30 4 46 18 72 10S112 4 136 12 176 16 196 8" fill="none" stroke="#E2412B" stroke-width="2.5" stroke-linecap="round"/></svg>
+      </div>
+      <a class="btn btn-accent r-go" href="#contact">send this with my brief</a>
     </div>
   </div>
 </section>
 
 <!-- ============ KONAR · case ============ -->
-<section class="sec konar" id="konar" data-theme="ink" data-label="konar" data-spine="0.97 0, 0.97 0.22, 0.5 0.33, 0.03 0.45, 0.03 1">
+<section class="sec konar" id="konar" data-theme="ink" data-label="konar" data-spine="0.97 0, 0.97 0.22, 0.5 0.33, 0.035 0.45, 0.035 1">
   <div class="honey-edge" aria-hidden="true"></div>
   <div class="wrap">
-    <p class="kicker kicker-gold">case · dastan honey</p>
+    <p class="kicker kicker-gold">case study · dastan honey</p>
     <div class="konar-head">
       <h2 class="display">konar.</h2>
       <p class="konar-sub display-sm">a perfume ad,<br>except it's honey.</p>
@@ -233,97 +249,164 @@
   </div>
 </section>
 
-<!-- ============ THE CUT · everything we've made ============ -->
-<section class="sec sec-ink cut" id="cut" data-theme="ink" data-label="our work" data-spine="0.03 0, 0.03 0.3, 0.5 0.5, 0.97 0.6, 0.97 1">
-  <div class="wrap">
-    <h2 class="display">the cut</h2>
-    <p class="lead">Everything we've made so far, on one timeline. Drag the playhead, then hit play.</p>
-    <div class="monitor" id="monitor" aria-live="polite">
-      <div class="scene scene-product is-on">
-        <span class="scene-drip"></span>
-        <div class="scene-info"><b>konar</b><p>product film · Dastan honey</p><button class="scene-play" type="button" data-video="konar" data-title="Konar">play ▶</button></div>
-      </div>
-      <div class="scene scene-explainer">
-        <span class="scene-bars"><i></i><i></i><i></i><i></i></span>
-        <div class="scene-info"><b>on the chart</b><p>finance explainer · Moj on green screen</p><button class="scene-play" type="button" data-video="chart" data-title="On the Chart">play ▶</button></div>
-      </div>
-      <div class="scene scene-teaser">
-        <b class="soon" data-text="coming soon">coming soon</b>
-        <div class="scene-info"><b>teasers</b><p>dark, fast, a hard cut at the end</p><button class="scene-play" type="button" data-video="teaser" data-title="Teasers and trailers">play ▶</button></div>
-      </div>
-      <div class="scene scene-short">
-        <span class="phone"><span class="phone-cap">i'm already lost.</span></span>
-        <div class="scene-info"><b>clay date</b><p>a reel · the idea Moj said no to</p><button class="scene-play" type="button" data-video="short" data-vertical="1" data-title="Clay date">play ▶</button></div>
-      </div>
-      <div class="scene scene-geek">
-        <span class="geek-stills"><img src="assets/img/work-ticket.webp" alt="" loading="lazy" width="1200" height="1200"><img src="assets/img/work-clans.webp" alt="" loading="lazy" width="1200" height="1200"></span>
-        <div class="scene-info"><b>geekbazi</b><p>board game reviews · on camera, shot and cut in-house</p><button class="scene-play" type="button" data-video="geekbazi" data-title="A Geekbazi review">play ▶</button></div>
-      </div>
-      <div class="scene scene-logo"><div class="orbit-slot orbit-cut" data-orbit="ink" aria-hidden="true"></div></div>
+<!-- ============ MIDDLE CTA ============ -->
+<section class="sec mid-cta" id="midCta" data-theme="paper" data-spine="0.035 0, 0.035 0.86, 0.3 0.93, loop, 0.97 0.9, 0.97 1">
+  <div class="wrap mid-grid">
+    <div class="mid-copy">
+      <h2 class="display">got a launch date<br>and nothing to film?</h2>
+      <p class="lead">That's our favourite kind of brief. Tell us the date and we'll tell you what we can make by then, with a price.</p>
     </div>
-    <div class="timeline" id="timeline">
-      <div class="ruler" aria-hidden="true"></div>
-      <div class="track" aria-hidden="true"><i class="clip c1"><span>konar</span></i><i class="clip c2"><span>on the chart</span></i><i class="clip c3"><span>teasers</span></i><i class="clip c4"><span>clay date</span></i><i class="clip c5"><span>geekbazi</span></i></div>
-      <div class="playhead" id="playhead" role="slider" tabindex="0" aria-label="playhead" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="konar">
-        <span class="ph-line"></span><span class="ph-handle"></span>
-      </div>
+    <div class="mid-actions">
+      <a class="btn btn-accent btn-big" href="#contact">send your brief</a>
+      <p class="mid-small">or email <a class="squiggle" href="mailto:get.hooked.with.jj@gmail.com">get.hooked.with.jj@gmail.com</a></p>
     </div>
-    <p class="cut-hint" aria-hidden="true">drag me to the end. something hooks.</p>
   </div>
 </section>
 
-<!-- ============ THE RECEIPT ============ -->
-<section class="sec sec-paper receipt-sec" id="receipt" data-theme="paper" data-label="prices" data-spine="0.97 0, 0.97 0.35, 0.78 0.5, loop, 0.97 0.85, 0.97 1">
-  <div class="wrap receipt-grid">
-    <div class="receipt-copy">
-      <h2 class="display">no surprises.</h2>
-      <p class="lead">Pick a package, add what you need. The receipt does the maths. Final quote after we read your knot.</p>
-      <p class="picks-k">1 · pick one</p>
-      <ul class="picks picks-pkg deck" id="picks" data-deck="packages"></ul>
-      <p class="picks-k">2 · add if you like</p>
-      <ul class="picks picks-add" id="addons"></ul>
+<!-- ============ MEET THE TWO ============ -->
+<section class="sec meet" id="meet" data-theme="paper" data-label="about us" data-tn data-spine="0.97 0, 0.97 0.3, 0.75 0.42, loop, 0.5 0.55, 0.035 0.72, 0.035 1">
+  <div class="meet-top">
+    <div class="meet-head wrap">
+      <h2 class="display">two people.<br>one studio.</h2>
+      <p class="lead">Jaz writes, designs and animates. Moj shoots, edits and does the sound. Every project gets both of us, start to finish.</p>
     </div>
-    <div class="printer" aria-live="polite">
-      <div class="printer-slot" aria-hidden="true"></div>
-      <div class="receipt" id="receiptPaper">
-        <p class="r-head">hooked · studio receipt</p>
-        <p class="r-sub">order no. <span id="rNo">0001</span> · served by moj &amp; jaz</p>
-        <ul class="r-lines" id="rLines"></ul>
-        <p class="r-total"><span>total</span><b id="rTotal">$0</b></p>
-        <p class="r-small" id="rSmall">launch prices · USD</p>
-        <p class="r-thanks">thank you for your knot.<br>come again.</p>
-        <svg class="r-thread" viewBox="0 0 200 20" aria-hidden="true"><path d="M4 12C30 4 46 18 72 10S112 4 136 12 176 16 196 8" fill="none" stroke="#E2412B" stroke-width="2.5" stroke-linecap="round"/></svg>
+  </div>
+  <div class="meet-split deck" data-deck="the two">
+    <article class="person person-jaz" data-theme="paper">
+      <button class="person-photo" type="button" id="jazPhoto" aria-label="Jaz pulls the thread">
+        <span class="plate plate-red" aria-hidden="true"></span>
+        <span class="ph ph-default"><img src="assets/img/jaz-default.webp" alt="Jaz holding a butter-yellow board that says jaz, the untangler" width="1200" height="1800" loading="lazy"><span class="board board-jaz" style="--x:.534;--y:.363;--w:.412;--h:.329" aria-hidden="true"><b><span class="j">j</span>az</b><small>the untangler</small></span></span>
+        <span class="ph ph-hover" aria-hidden="true"><img src="assets/img/jaz-hover.webp" alt="" width="1200" height="1800" loading="lazy"><span class="board board-jaz" style="--x:.538;--y:.361;--w:.408;--h:.332"><b><span class="j">j</span>az</b><small>the untangler</small></span></span>
+        <span class="fly-cards" aria-hidden="true"><i>idea</i><i>hook</i><i>script</i></span>
+      </button>
+      <p class="name-tag tag-jaz">script · design · motion</p>
+      <p class="person-line">Research, scripts, design and motion graphics. She pulls at a brief until the idea falls out.</p>
+    </article>
+    <article class="person person-moj" data-theme="ink">
+      <button class="person-photo" type="button" id="mojPhoto" aria-label="Moj snaps his fingers">
+        <span class="plate plate-green" aria-hidden="true"></span>
+        <span class="ph ph-default"><img src="assets/img/moj-default.webp" alt="Moj holding an ink board that says moj, the cutter" width="1200" height="1800" loading="lazy"><span class="board board-moj" style="--x:.162;--y:.506;--w:.652;--h:.398" aria-hidden="true"><b>mo<span class="j">j</span></b><small>the cutter</small></span></span>
+        <span class="ph ph-hover" aria-hidden="true"><img src="assets/img/moj-hover.webp" alt="" width="1200" height="1800" loading="lazy"><span class="board board-moj" style="--x:.108;--y:.482;--w:.642;--h:.422"><b>mo<span class="j">j</span></b><small>the cutter</small></span></span>
+        <span class="flash" aria-hidden="true"></span>
+      </button>
+      <p class="name-tag tag-moj">camera · edit · sound</p>
+      <p class="person-line">Camera, edit and sound. He says no to the boring parts, then makes the yes look good.</p>
+    </article>
+  </div>
+</section>
+
+<!-- ============ HOW WE THINK ============ -->
+<section class="sec sec-ink think" id="think" data-theme="ink" data-label="how we think" data-spine="0.035 0, 0.035 0.38, 0.5 0.56, 0.97 0.62, 0.97 1">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="display">how we think</h2>
+      <p class="lead">Jaz pitches. Moj pushes back. What survives gets made. These three ideas are real, and every one became a film. Flip them.</p>
+    </div>
+    <div class="cards deck" id="cards" data-deck="ideas">
+      <div class="card-slot">
+        <button class="card" type="button" aria-pressed="false" data-card="1">
+          <span class="card-face card-front"><b class="card-k">idea one · jaz</b><span class="card-t">we film a jar of honey like a perfume ad.</span><em class="card-hint">tap for moj's reply</em></span>
+          <span class="card-face card-back"><b class="card-k">moj</b><span class="card-t">budget?</span><em class="card-hint">"one spoon." he liked it.</em></span>
+        </button>
+        <a class="became" href="#konar" data-became="1"><span>it became</span><b>konar →</b></a>
       </div>
-      <a class="btn btn-accent r-go" href="#contact">send this with my knot</a>
+      <div class="card-slot">
+        <button class="card" type="button" aria-pressed="false" data-card="2">
+          <span class="card-face card-front"><b class="card-k">idea two · jaz</b><span class="card-t">a finance explainer, but you're literally on the chart.</span><em class="card-hint">tap for moj's reply</em></span>
+          <span class="card-face card-back"><b class="card-k">moj</b><span class="card-t">i'm always on the chart.</span><em class="card-hint">he sighed. then he got on it.</em></span>
+        </button>
+        <button class="became" type="button" data-became="2" data-video="chart" data-title="On the Chart, a finance explainer"><span>it became</span><b>on the chart ▶</b></button>
+      </div>
+      <div class="card-slot">
+        <button class="card card-doomed" type="button" aria-pressed="false" data-card="3">
+          <span class="card-face card-front"><b class="card-k">idea three · jaz</b><span class="card-t">a date video where we-</span><em class="card-hint">tap. bravely.</em></span>
+          <span class="card-face card-back"><b class="card-k">moj</b><span class="card-t">no.</span><em class="card-hint">it went in the bin.</em></span>
+          <span class="stamp" aria-hidden="true">no.</span>
+        </button>
+        <button class="became" type="button" data-became="3" data-video="short" data-vertical="1" data-title="Clay date, a reel"><span>it became</span><b>a reel anyway ▶</b></button>
+      </div>
+    </div>
+    <p class="think-foot">two out of three got made.<br>then the third one did too.</p>
+  </div>
+</section>
+
+<!-- ============ SOCIAL ============ -->
+<section class="sec sec-paper social" id="social" data-theme="paper" data-label="follow us" data-spine="0.97 0, 0.97 0.25, 0.6 0.4, 0.97 0.7, 0.97 1">
+  <div class="wrap social-grid">
+    <div class="social-copy">
+      <h2 class="display">we post what<br>we make.</h2>
+      <p class="lead">Date ideas we actually try, and the two of us arguing about them. Videos for brands, made the same way. Every post is a sample of what we can make for you.</p>
+      <ul class="series" aria-label="our series">
+        <li class="s-ink"><b>hook autopsy</b><span>A famous ad, frozen at 3 seconds. Why it stops the thumb.</span></li>
+        <li class="s-paper"><b>moj vs <span class="j">j</span>az</b><span>Jaz pitches a date, Moj argues, the receipt decides.</span></li>
+        <li class="s-butter"><b>budget vs vibes</b><span>The same date, cheap and fancy, side by side.</span></li>
+        <li class="s-red"><b>knot of the week</b><span>A small business sends a messy brief. We untangle it on camera.</span></li>
+        <li class="s-green"><b>tiny studio, big shot</b><span>An expensive-looking shot, made with a green screen and things from home.</span></li>
+      </ul>
+      <div class="social-links" id="socialLinks">
+        <a class="btn btn-accent" data-social="instagram" href="#">follow on instagram</a>
+        <a class="btn btn-ghost" data-social="youtube" href="#">youtube</a>
+        <a class="btn btn-ghost" data-social="tiktok" href="#">tiktok</a>
+      </div>
+      <p class="social-note" id="socialNote" hidden>Our handle goes live soon. Until then, say hi at <a href="mailto:get.hooked.with.jj@gmail.com">get.hooked.with.jj@gmail.com</a>.</p>
+    </div>
+    <div class="phone-mock" aria-hidden="true">
+      <div class="pm-top">
+        <span class="pm-av"><img src="assets/brand/mark-on-paper.svg" alt=""></span>
+        <span class="pm-id"><b id="pmHandle">hooked</b><span>date ideas &amp; video</span></span>
+      </div>
+      <p class="pm-bio">date ideas we actually try.<br>videos for brands, made the same way.<br>send us your knot ↓</p>
+      <div class="pm-grid">
+        <span class="pm-t t-red"><small>weekly</small><span>knot of the week</span></span>
+        <span class="pm-t t-ink"><small>weekly</small><span>hook autopsy</span></span>
+        <span class="pm-t t-photo t-jaz"><img src="assets/img/jaz-hover.webp" alt="" loading="lazy"></span>
+        <span class="pm-t t-butter"><small>every 2 weeks</small><span>budget vs vibes</span></span>
+        <span class="pm-t t-paper"><small>weekly</small><span>moj vs <span class="j">j</span>az</span></span>
+        <span class="pm-t t-photo t-moj"><img src="assets/img/moj-default.webp" alt="" loading="lazy"></span>
+        <span class="pm-t t-green"><small>monthly</small><span>tiny studio, big shot</span></span>
+        <span class="pm-t t-ink"><small>every 2 weeks</small><span>the cut</span></span>
+        <span class="pm-t t-paper"><small>date idea</small><span>we tried a clay date</span></span>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ============ CONTACT ============ -->
-<section class="sec sec-ink contact" id="contact" data-theme="ink" data-label="send it" data-spine="0.97 0, 0.5 0.06, 0.5 0.5, 0.28 0.64">
+<section class="sec sec-ink contact" id="contact" data-theme="ink" data-label="send it" data-tn data-spine="0.97 0, 0.645 0.04, 0.645 0.45, 0.6 0.56, 0.565 0.6">
   <div class="wrap contact-grid">
     <div class="contact-copy">
       <h2 class="display">send us<br>your knot.</h2>
-      <p class="lead">Tell us what you're making, who it's for, and the date you're scared of.</p>
-      <div class="contact-knot" id="contactKnot" aria-hidden="true"></div>
+      <p class="lead">Tell us what you're making, who it's for, and the date you're scared of. The messier the better.</p>
+      <ol class="next-steps" aria-label="what happens next">
+        <li><b>1</b><span>We read it and reply with an idea and a price.</span></li>
+        <li><b>2</b><span>You say yes. We write the script and you approve it.</span></li>
+        <li><b>3</b><span>We shoot, edit and animate. You get two rounds of changes.</span></li>
+        <li><b>4</b><span>You get the finished video in every format you need.</span></li>
+      </ol>
     </div>
-    <form class="form" id="form" novalidate>
-      <label class="field"><span>your name</span><input name="name" autocomplete="name" required></label>
-      <label class="field"><span>your email</span><input name="email" type="email" autocomplete="email" required></label>
-      <label class="field"><span>the knot <em>(the messier the better)</em></span><textarea name="knot" rows="5" required id="knotText" placeholder="we're launching a… it needs to… by…"></textarea></label>
-      <label class="field"><span>the date you're scared of</span><input name="deadline" type="date"></label>
-      <p class="form-receipt" id="formReceipt" hidden></p>
-      <input type="hidden" name="receipt" id="receiptField">
-      <input type="hidden" name="_subject" value="a knot for hooked">
-      <input class="hp" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <button class="btn btn-accent btn-big" type="submit" id="send">send the knot</button>
-      <p class="form-note" id="formNote" role="status"></p>
-    </form>
-    <div class="received" id="received" hidden>
-      <div class="receipt receipt-small">
-        <p class="r-head">knot received.</p>
-        <p class="r-sub" id="replyLine">we'll write back soon.</p>
-        <p class="r-thanks">jaz is already untangling it.<br>moj is already doubting it.</p>
+    <div class="contact-side">
+      <div class="contact-jaz" aria-hidden="true">
+        <img src="assets/img/contact.webp" alt="" width="1145" height="1601" loading="lazy">
+        <div class="contact-knot" id="contactKnot"></div>
+      </div>
+      <form class="form" id="form" novalidate>
+        <label class="field"><span>your name</span><input name="name" autocomplete="name" required></label>
+        <label class="field"><span>your email</span><input name="email" type="email" autocomplete="email" required></label>
+        <label class="field"><span>your brief <em>(the messier the better)</em></span><textarea name="knot" rows="6" required id="knotText" placeholder="we're launching a… it needs to… by…"></textarea></label>
+        <label class="field"><span>the date you're scared of</span><input name="deadline" type="date"></label>
+        <p class="form-receipt" id="formReceipt" hidden></p>
+        <input type="hidden" name="receipt" id="receiptField">
+        <input type="hidden" name="_subject" value="a knot for hooked">
+        <input class="hp" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button class="btn btn-accent btn-big" type="submit" id="send">send the brief</button>
+        <p class="form-note" id="formNote" role="status"></p>
+      </form>
+      <div class="received" id="received" hidden>
+        <div class="receipt receipt-small">
+          <p class="r-head">knot received.</p>
+          <p class="r-sub" id="replyLine">we'll write back soon.</p>
+          <p class="r-thanks">jaz is already untangling it.<br>moj is already doubting it.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -332,11 +415,14 @@
 </main>
 
 <footer class="footer" data-theme="ink" data-label="the end">
-  <img class="footer-jaz" src="assets/img/contact.webp" alt="" width="1067" height="1600" loading="lazy" aria-hidden="true">
   <div class="wrap footer-grid">
     <div class="orbit-slot orbit-footer" data-orbit="ink" role="img" aria-label="hooked"></div>
     <p class="footer-line display-sm">made by two people<br>who argue for a living.</p>
-    <p class="footer-meta"><a href="mailto:get.hooked.with.jj@gmail.com" class="squiggle">get.hooked.with.jj@gmail.com</a><span>© 2026 hooked · moj &amp; jaz</span></p>
+    <div class="footer-meta">
+      <a href="mailto:get.hooked.with.jj@gmail.com" class="squiggle">get.hooked.with.jj@gmail.com</a>
+      <span class="footer-social" id="footerSocial"></span>
+      <span>© 2026 hooked · moj &amp; jaz</span>
+    </div>
   </div>
 </footer>
 
