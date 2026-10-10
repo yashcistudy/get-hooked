@@ -14,6 +14,7 @@ The order follows what a first-time visitor needs to know, in the order they ask
 | 2 | our film (The Knot) | the proof, in one film |
 | 3 | what we make | the four kinds of video and what every video comes with |
 | 4 | the cut | everything we've made, on a timeline |
+| 4b | motion | the three showcase motion films (glow-up, asdfjkx, tbilisi café), playing as you scroll past |
 | 5 | prices | "where's your project at?" picks a package, the receipt does the maths |
 | 6 | konar | one case study, start to finish |
 | 7 | middle call to action | one thing to do, halfway down |
@@ -31,14 +32,14 @@ All of it lives in `assets/js/config.js`.
 | YouTube video IDs | `videos: { knot: 'abc123', ... }` | a "goes up here soon" poster, and a toast on tap |
 | Social links | `social: { instagram: 'https://…', youtube: …, tiktok: …, handle: 'yourhandle' }` | the buttons say the handle is coming soon |
 | Reply time | `replyDays: 2` | "we'll write back soon" |
-| Prices | `packages`, `addons`, `included` | already set from the feasibility report (low end, "from") |
+| Prices | `packages`, `addons`, `included`, `launchNote` | same as the packages-and-process PDF: launch price for the first 5 clients, `was` = regular price shown crossed out |
 | Picker answers | `routes` | already set: each answer picks a package |
 
 The Formspree endpoint is already set. A YouTube ID is the part after `watch?v=`. For `https://www.youtube.com/watch?v=dQw4w9WgXcQ` it's `dQw4w9WgXcQ`.
 
 ### The receipt
 
-`packages` is the "pick a package" row: `price` is the "from" number in USD, `unit` shows after it (`/mo`, `/video`), `tag` is the one-line "what it is". `addons` are extras: `pct` adds a percentage of the package, `flat` adds a fixed amount. `included` is the free line that's always on the receipt. Whatever the visitor builds is sent with the form as a `receipt` field, so you see it in Formspree.
+`packages` is the "pick a package" row: `price` is the "from" number in USD, `unit` shows after it (`/mo`, `/video`), `tag` is the one-line "what it is". `addons` are extras: `pct` adds a percentage of the package, `flat` adds a fixed amount, `per` sets an amount per package (the 8-reel upgrade) and greys out for packages it doesn't fit. `included` is the free line that's always on the receipt. Whatever the visitor builds is sent with the form as a `receipt` field, so you see it in Formspree.
 
 ## Photos
 
@@ -92,3 +93,7 @@ With "reduce motion" switched on in the visitor's settings, every effect shows i
 ## Publishing
 
 Repo settings → Pages → Source: **Deploy from a branch**, branch **main**, folder **/ (root)**. The site appears at `https://yashcistudy.github.io/get-hooked/`. The 404 page assumes that address; if you move to `gethooked.org`, change the four `/get-hooked/` paths in `404.html` to `/`.
+
+## Motion films
+
+`assets/video/` holds the three showcase films as 720×1280 MP4s (about 2 to 3.5 MB each) with a WebP poster. They load only when the section scrolls into view, play muted, and the "sound off" button turns sound on for one film at a time. To swap a film, replace the MP4 and its poster with the same file name.

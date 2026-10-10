@@ -170,3 +170,17 @@ body{padding-bottom:0;background:var(--neutral-950)}
 .contact-jaz{width:58%;margin-top:28px}
 .next-steps{margin-top:28px}
 .mid-cta{background-size:auto 110%}
+
+/* ---------- v4 on phones ---------- */
+/* the reel phone in "what we make": wide enough for its caption */
+.world-short .phone{width:40%;top:8%}
+/* the thread nav fills with a clip, not a dash, so it lines up with its knots on every browser */
+.tn-fill{stroke-dasharray:none;stroke-dashoffset:0}
+/* motion films: a swipe deck of three phones */
+.reels{margin-top:32px}
+.reels>.reel{flex-basis:72%}
+.reel:nth-child(2){margin-top:0}
+.reel-phone{box-shadow:8px 8px 0 var(--surface-jaz)}
+.reel-d{font-size:15px}
+.motion-foot{margin-top:28px}
+.motion-foot .chip{flex:1 1 auto}

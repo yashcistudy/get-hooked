@@ -615,3 +615,42 @@ button{font:inherit;color:inherit}
 @media (max-width:1100px) and (min-width:761px){:root{--gutter:32px}.nav-links{display:flex;gap:14px}.nav-links a{font-size:14px}.nav-cta .long{display:none}.nav-cta .short{display:inline}}
 @media (min-width:1101px){.contact-grid{grid-template-columns:.85fr 1.45fr}}
 @media (min-width:861px){.contact-side{grid-template-columns:.78fr 1fr}}
+
+/* ---------- v4 · fixes ---------- */
+/* nothing scrolls sideways, on any browser (clip, unlike hidden, doesn't make body a scroll box) */
+@supports (overflow:clip){html,body{overflow-x:clip}}
+/* the nav reaches the very top: iOS Safari can show the page above a fixed bar while its toolbar collapses */
+.nav::before{content:"";position:absolute;left:0;right:0;bottom:100%;height:120px;background:inherit}
+/* torn edges: only the ink tears up into the paper, so the paper above keeps its texture,
+   and the tear keeps its size on narrow screens instead of squashing flat */
+.film::before,.cut::before,.think::before,.contact::before{top:-23px;height:24px;background:url(../kit/torn-edge-ink-up-1440x24.svg) 0 0/max(100%,960px) 100% repeat-x}
+/* "pull the thread" pulls: tap it and the page scrolls on, untying the knot on the way */
+.scroll-hint{color:inherit;text-decoration:none;padding:8px 14px;cursor:pointer;transition:opacity .3s}
+.scroll-hint:hover svg,.scroll-hint:focus-visible svg{animation:tug .6s var(--ease-spring) 2}
+.scroll-hint.is-gone{opacity:0;pointer-events:none}
+@keyframes tug{50%{transform:translateY(8px)}}
+/* old regular price next to the launch price */
+.pick-was{margin-left:6px;font-weight:400;font-size:13px;color:var(--on-paper-text-muted)}
+.pick-add.is-off label{opacity:.45;cursor:not-allowed}
+
+/* ---------- v4 · motion: the three showcase films ---------- */
+.motion{background:var(--surface-butter) url(../kit/halftone-radial-butter-960.svg) right top/auto 120% no-repeat;color:var(--on-butter-text)}
+.motion .j{color:var(--on-butter-j)}
+.reels{display:grid;grid-template-columns:repeat(3,minmax(0,330px));justify-content:space-between;gap:clamp(22px,3.4vw,56px);margin:56px auto 0;padding:0;max-width:1180px;align-items:start}
+.reel{margin:0;min-width:0}
+.reel:nth-child(1){transform:rotate(-1.5deg)}
+.reel:nth-child(2){transform:rotate(1deg);margin-top:36px}
+.reel:nth-child(3){transform:rotate(-.6deg)}
+.reel-phone{position:relative;aspect-ratio:9/16;background:var(--surface-ink);border:10px solid var(--surface-ink);border-radius:14px;box-shadow:12px 12px 0 var(--surface-jaz);overflow:hidden;cursor:pointer}
+.reel:nth-child(2) .reel-phone{box-shadow:12px 12px 0 var(--surface-ink)}
+.reel-phone video{display:block;width:100%;height:100%;object-fit:cover;background:var(--surface-ink)}
+.reel-sound{position:absolute;left:10px;bottom:10px;z-index:2;min-height:36px;padding:6px 12px;border:var(--stroke-ui) solid var(--surface-ink);border-radius:var(--radius-pill);background:var(--surface-paper);color:var(--on-paper-text);font-weight:700;font-size:13px;cursor:pointer;transition:transform var(--t-tap) var(--ease-spring)}
+.reel-sound[aria-pressed="true"]{background:var(--surface-jaz);color:var(--on-jaz-text)}
+.reel-sound:hover{transform:rotate(-3deg) scale(1.05)}
+.reel figcaption{display:flex;flex-direction:column;gap:6px;margin-top:22px}
+.reel-k{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--on-butter-j)}
+.reel-t{font-family:var(--font-display);font-weight:400;font-size:var(--d-md);line-height:.96;text-transform:lowercase}
+.reel-d{font-size:16px;line-height:1.45;max-width:34ch}
+.motion-foot{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:56px}
+.motion-foot .picks-k{margin:0 8px 0 0}
+.motion .chip{background:var(--surface-paper)}

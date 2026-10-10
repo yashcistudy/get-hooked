@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>hooked · video studio for brands · moj &amp; jaz</title>
-<meta name="description" content="Product films, explainers, teasers and reels for brands. Moj and Jaz write, shoot, edit and animate in their own studio. Launch prices from $150.">
+<meta name="description" content="Product films, explainers, motion stories and reels for brands. Moj and Jaz write, shoot, edit and animate in their own studio. Launch prices from $150.">
 <meta name="theme-color" content="#F6F1E7">
 <link rel="icon" href="assets/brand/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="assets/brand/favicon-32.png" sizes="32x32" type="image/png">
@@ -35,6 +35,7 @@
     <a href="#film">our film</a>
     <a href="#worlds">what we make</a>
     <a href="#cut">work</a>
+    <a href="#motion">motion</a>
     <a href="#receipt">prices</a>
     <a href="#meet">about us</a>
   </nav>
@@ -75,7 +76,7 @@
     <p class="knot-note" id="knotNote" aria-hidden="true">your brief,<br>probably</p>
     <div class="hero-knot" id="heroKnot" aria-hidden="true"></div>
   </div>
-  <p class="scroll-hint" aria-hidden="true"><span>pull the thread</span><svg viewBox="0 0 24 40"><path d="M12 3v30m-7-7 7 7 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></p>
+  <a class="scroll-hint" id="pullHint" href="#film"><span>pull the thread</span><svg viewBox="0 0 24 40" aria-hidden="true"><path d="M12 3v30m-7-7 7 7 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
 </section>
 
 <!-- ============ THE KNOT · the film ============ -->
@@ -174,18 +175,48 @@
   </div>
 </section>
 
+<!-- ============ MOTION · the three showcase films ============ -->
+<section class="sec motion" id="motion" data-theme="paper" data-label="motion" data-tn data-spine="0.035 0, 0.035 1">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="display">stories<br>that move.</h2>
+      <p class="lead">Some things are hard to film: an app, a service, a café on the other side of the world. So we animate them. We made these three to show how. Each one sells a business in under a minute, and nobody talks at the camera.</p>
+    </div>
+    <div class="reels deck" id="reels" data-deck="films">
+      <figure class="reel">
+        <div class="reel-phone"><video muted playsinline loop preload="none" poster="assets/video/motion-glow-up.webp" data-src="assets/video/motion-glow-up.mp4" aria-label="The glow-up, a 40-second motion film"></video><button class="reel-sound" type="button" aria-pressed="false">sound off</button></div>
+        <figcaption><span class="reel-k">motion short · 0:40</span><b class="reel-t">the glow-up</b><span class="reel-d">A pillow plays your product. We light it, frame it and give it a story, and the room fills up with phones.</span></figcaption>
+      </figure>
+      <figure class="reel">
+        <div class="reel-phone"><video muted playsinline loop preload="none" poster="assets/video/motion-asdfjkx.webp" data-src="assets/video/motion-asdfjkx.mp4" aria-label="asdfjkx, a 40-second motion film"></video><button class="reel-sound" type="button" aria-pressed="false">sound off</button></div>
+        <figcaption><span class="reel-k">motion story · 0:40</span><b class="reel-t">asdfjkx</b><span class="reel-d">A crypto app with a keyboard-smash name. We find the simple story, film it in our studio and deliver it, even in a blackout.</span></figcaption>
+      </figure>
+      <figure class="reel">
+        <div class="reel-phone"><video muted playsinline loop preload="none" poster="assets/video/motion-tbilisi-cafe.webp" data-src="assets/video/motion-tbilisi-cafe.mp4" aria-label="The Tbilisi café, a one-minute motion film"></video><button class="reel-sound" type="button" aria-pressed="false">sound off</button></div>
+        <figcaption><span class="reel-k">motion story · 1:00</span><b class="reel-t">the tbilisi café</b><span class="reel-d">A café that couldn't ship us anything. One form, a few photos, and we rebuilt it with AI. Nothing shipped, a line at the door.</span></figcaption>
+      </figure>
+    </div>
+    <div class="motion-foot">
+      <p class="picks-k">want one for your product?</p>
+      <button class="chip" type="button" data-pick="mshort">motion short · $275</button>
+      <button class="chip" type="button" data-pick="mstory">motion story · $625</button>
+    </div>
+  </div>
+</section>
+
 <!-- ============ PRICES ============ -->
 <section class="sec sec-paper receipt-sec" id="receipt" data-theme="paper" data-label="prices" data-tn data-spine="0.035 0, 0.035 0.9, 0.5 0.95, loop, 0.97 0.93, 0.97 1">
   <div class="wrap receipt-grid">
     <div class="receipt-copy">
       <h2 class="display">no surprises.</h2>
-      <p class="lead">Launch prices in USD. Pick a package, add what you need, and the receipt does the maths. We confirm the final quote after we read your brief.</p>
+      <p class="lead">Launch prices in USD for our first 5 clients, locked for 3 months. Pick a package, add what you need, and the receipt does the maths. We confirm the final quote after we read your brief.</p>
       <div class="picker" id="picker">
         <p class="picks-k">not sure? where's your project at?</p>
         <div class="picker-btns" role="group" aria-label="where's your project at">
           <button class="chip" type="button" data-route="idea" aria-pressed="false">just an idea</button>
           <button class="chip" type="button" data-route="footage" aria-pressed="false">footage, no time</button>
           <button class="chip" type="button" data-route="launch" aria-pressed="false">a product and a date</button>
+          <button class="chip" type="button" data-route="animate" aria-pressed="false">something to animate</button>
           <button class="chip" type="button" data-route="big" aria-pressed="false">one big launch film</button>
         </div>
         <p class="picker-note" id="pickerNote" aria-live="polite"></p>
@@ -335,8 +366,9 @@
   <div class="wrap social-grid">
     <div class="social-copy">
       <h2 class="display">we post what<br>we make.</h2>
-      <p class="lead">Date ideas we actually try, and the two of us arguing about them. Videos for brands, made the same way. Every post is a sample of what we can make for you.</p>
+      <p class="lead">Date ideas we actually try, and the two of us arguing about them. YouTube Shorts ads for products everyone knows, like the PS5. Every post is a sample of what we can make for you.</p>
       <ul class="series" aria-label="our series">
+        <li class="s-ink"><b>spec ads</b><span>Shorts ads for products you already know, like the PS5. Unofficial and made by us, to show what your launch could look like.</span></li>
         <li class="s-ink"><b>hook autopsy</b><span>A famous ad, frozen at 3 seconds. Why it stops the thumb.</span></li>
         <li class="s-paper"><b>moj vs <span class="j">j</span>az</b><span>Jaz pitches a date, Moj argues, the receipt decides.</span></li>
         <li class="s-butter"><b>budget vs vibes</b><span>The same date, cheap and fancy, side by side.</span></li>
@@ -353,9 +385,9 @@
     <div class="phone-mock" aria-hidden="true">
       <div class="pm-top">
         <span class="pm-av"><img src="assets/brand/mark-on-paper.svg" alt=""></span>
-        <span class="pm-id"><b id="pmHandle">hooked</b><span>date ideas &amp; video</span></span>
+        <span class="pm-id"><b id="pmHandle">hooked</b><span>date ideas &amp; ads</span></span>
       </div>
-      <p class="pm-bio">date ideas we actually try.<br>videos for brands, made the same way.<br>send us your knot ↓</p>
+      <p class="pm-bio">date ideas we actually try.<br>shorts ads for things you know.<br>send us your knot ↓</p>
       <div class="pm-grid">
         <span class="pm-t t-red"><small>weekly</small><span>knot of the week</span></span>
         <span class="pm-t t-ink"><small>weekly</small><span>hook autopsy</span></span>
@@ -364,7 +396,7 @@
         <span class="pm-t t-paper"><small>weekly</small><span>moj vs <span class="j">j</span>az</span></span>
         <span class="pm-t t-photo t-moj"><img src="assets/img/moj-default.webp" alt="" loading="lazy"></span>
         <span class="pm-t t-green"><small>monthly</small><span>tiny studio, big shot</span></span>
-        <span class="pm-t t-ink"><small>every 2 weeks</small><span>the cut</span></span>
+        <span class="pm-t t-ink"><small>spec ad</small><span>the ps5, our way</span></span>
         <span class="pm-t t-paper"><small>date idea</small><span>we tried a clay date</span></span>
       </div>
     </div>

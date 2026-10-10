@@ -380,28 +380,35 @@
   const PK = (C.packages || []), AD = (C.addons || []);
   const picks = $('#picks'), addEl = $('#addons'), rLines = $('#rLines'), rTotal = $('#rTotal'), rNo = $('#rNo'), rSmall = $('#rSmall');
   const money = (n) => '$' + Math.round(n).toLocaleString('en-US');
-  let chosen = 'concept';
+  let chosen = 'direct';
   const addOn = new Set();
   PK.forEach((p) => {
     const li = document.createElement('li'); li.className = 'pick pick-pkg';
-    li.innerHTML = `<input type="radio" name="pkg" id="pkg-${p.id}" value="${p.id}"><label for="pkg-${p.id}"><span class="pick-who">${p.tag || ''}</span><b>${p.label}</b><span class="pick-price">from ${money(p.price)}<small>${p.unit || ''}</small></span><small class="pick-note">${p.note}</small></label>`;
+    li.innerHTML = `<input type="radio" name="pkg" id="pkg-${p.id}" value="${p.id}"><label for="pkg-${p.id}"><span class="pick-who">${p.tag || ''}</span><b>${p.label}</b><span class="pick-price">${p.was ? '' : 'from '}${money(p.price)}<small>${p.unit || ''}</small>${p.was ? `<s class="pick-was">${money(p.was)}</s>` : ''}</span><small class="pick-note">${p.note}</small></label>`;
     $('input', li).addEventListener('change', () => { chosen = p.id; Sound.play('tick'); printReceipt(); });
     picks.appendChild(li);
   });
   AD.forEach((a) => {
     const li = document.createElement('li'); li.className = 'pick pick-add';
-    li.innerHTML = `<input type="checkbox" id="add-${a.id}"><label for="add-${a.id}"><b>${a.label} <span class="pick-plus">${a.pct ? '+' + a.pct + '%' : '+' + money(a.flat)}${a.unit || ''}</span></b><small>${a.note}</small></label>`;
+    li.innerHTML = `<input type="checkbox" id="add-${a.id}"><label for="add-${a.id}"><b>${a.label} <span class="pick-plus">${a.pct ? '+' + a.pct + '%' : a.per ? '' : '+' + money(a.flat)}${a.per ? '' : (a.unit || '')}</span></b><small>${a.note}</small></label>`;
     $('input', li).addEventListener('change', (e) => { e.target.checked ? addOn.add(a.id) : addOn.delete(a.id); Sound.play('tick'); printReceipt(); });
     addEl.appendChild(li);
   });
   let orderNo = 1, receiptText = '';
+  // an add-on can be priced per package (the 8-reel upgrade); it greys out where it doesn't apply
+  const addVal = (a, p) => (a.per ? a.per[p.id] : a.pct ? p.price * a.pct / 100 : a.flat);
   function printReceipt() {
     const p = PK.find((x) => x.id === chosen) || PK[0]; if (!p) return;
     $$('input[name=pkg]').forEach((i) => { i.checked = i.value === p.id; });
-    const lines = [[p.label, 'from ' + money(p.price) + (p.unit || '')]];
+    AD.filter((a) => a.per).forEach((a) => {
+      const box = $('#add-' + a.id), ok = a.per[p.id] != null;
+      box.disabled = !ok; box.closest('li').classList.toggle('is-off', !ok);
+      $('.pick-plus', box.closest('li')).textContent = ok ? '+' + money(a.per[p.id]) + (a.unit || '') : a.only || '';
+    });
+    const lines = [[p.label, (p.was ? '' : 'from ') + money(p.price) + (p.unit || '')]];
     let total = p.price;
-    AD.filter((a) => addOn.has(a.id)).forEach((a) => {
-      const v = a.pct ? p.price * a.pct / 100 : a.flat; total += v;
+    AD.filter((a) => addOn.has(a.id) && addVal(a, p) != null).forEach((a) => {
+      const v = addVal(a, p); total += v;
       lines.push([a.label + (a.pct ? ' +' + a.pct + '%' : ''), '+' + money(v) + (a.unit || '')]);
     });
     if (C.included) lines.push([C.included.label, 'free']);
@@ -411,7 +418,7 @@
       li.innerHTML = `<span>${l}</span><span>${v}</span>`; rLines.appendChild(li);
     });
     rTotal.textContent = 'from ' + money(total) + (p.unit || '');
-    rSmall.textContent = C.included ? `${C.included.label}: ${C.included.note}. launch prices, USD.` : 'launch prices, USD.';
+    rSmall.textContent = (C.included ? `${C.included.label}: ${C.included.note}. ` : '') + (C.launchNote || 'launch prices, USD.');
     rNo.textContent = String(orderNo++).padStart(4, '0');
     const paper = $('#receiptPaper'); paper.style.animation = 'none'; void paper.offsetWidth; paper.style.animation = '';
     receiptText = lines.map(([l, v]) => `${l}: ${v}`).join('\n') + `\ntotal: from ${money(total)}${p.unit || ''}`;
@@ -507,13 +514,20 @@
   const tnav = $('#threadNav');
   const secs = $$('main > section[data-label]');
   const stops = secs.filter((s) => s.hasAttribute('data-tn'));
-  tnav.innerHTML = `<span class="tn-label" id="tnLabel">hello</span><span class="tn-track"><svg class="tn-svg" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true"><path class="tn-bg" d="M1 10 C 12 6, 22 14, 34 10 S 56 6, 67 10 S 88 14, 99 10"/><path class="tn-fill" pathLength="1" d="M1 10 C 12 6, 22 14, 34 10 S 56 6, 67 10 S 88 14, 99 10"/></svg>${stops.map((s, i) => `<a class="tn-knot" href="#${s.id}" style="left:${(1 + i / (stops.length - 1) * 98).toFixed(2)}%" aria-label="${s.dataset.label}"></a>`).join('')}</span>`;
-  const tnFill = $('.tn-fill', tnav), tnLabel = $('#tnLabel'), tnKnots = $$('.tn-knot', tnav);
+  tnav.innerHTML = `<span class="tn-label" id="tnLabel">hello</span><span class="tn-track"><svg class="tn-svg" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true"><path class="tn-bg" d="M1 10 C 12 6, 22 14, 34 10 S 56 6, 67 10 S 88 14, 99 10"/><clipPath id="tnClip"><rect class="tn-clip" x="0" y="-10" width="0" height="40"/></clipPath><path class="tn-fill" clip-path="url(#tnClip)" d="M1 10 C 12 6, 22 14, 34 10 S 56 6, 67 10 S 88 14, 99 10"/></svg>${stops.map((s, i) => `<a class="tn-knot" href="#${s.id}" style="left:${(1 + i / (stops.length - 1) * 98).toFixed(2)}%" aria-label="${s.dataset.label}"></a>`).join('')}</span>`;
+  const tnClip = $('.tn-clip', tnav), tnLabel = $('#tnLabel'), tnKnots = $$('.tn-knot', tnav);
   let tnLast = -1;
   function tnUpdate() {
-    const H = document.documentElement.scrollHeight - window.innerHeight;
-    const t = H > 0 ? T.clamp(window.scrollY / H) : 0;
-    tnFill.style.strokeDashoffset = String(1 - t);
+    // the red fill stops exactly at the knot of the section you're in, and creeps toward the next one
+    const probe = window.scrollY + window.innerHeight * 0.45;
+    const tops = stops.map((st) => st.getBoundingClientRect().top + window.scrollY);
+    let f = 0;
+    tops.forEach((top, i) => {
+      if (probe < top) return;
+      const next = tops[i + 1];
+      f = next == null ? i : i + T.clamp((probe - top) / (next - top));
+    });
+    tnClip.setAttribute('width', (1 + f / Math.max(1, stops.length - 1) * 98).toFixed(2));
     let cur = 0;
     secs.forEach((s, i) => { if (s.getBoundingClientRect().top < window.innerHeight * 0.45) cur = i; });
     if (cur !== tnLast) {
@@ -544,6 +558,45 @@
   if (SO.handle) $('#pmHandle').textContent = '@' + SO.handle.replace(/^@/, '');
   const fs = $('#footerSocial');
   if (fs) fs.innerHTML = Object.keys(NAMES_SO).filter((k) => SO[k]).map((k) => `<a href="${SO[k]}" target="_blank" rel="noopener">${NAMES_SO[k]}</a>`).join(' · ');
+
+  /* ---------- hero: "pull the thread" pulls (scrolls on, the knot unties as it goes) ---------- */
+  const pull = $('#pullHint');
+  if (pull) {
+    pull.addEventListener('click', () => Sound.play('zip'));
+    const hidePull = () => pull.classList.toggle('is-gone', window.scrollY > 80);
+    window.addEventListener('scroll', hidePull, { passive: true }); hidePull();
+  }
+
+  /* ---------- motion: three films that play while you look at them ---------- */
+  const reels = $$('.reel video');
+  const loadReel = (v) => { if (!v.src && v.dataset.src) { v.src = v.dataset.src; v.preload = 'auto'; } };
+  const playReel = (v) => { loadReel(v); const pr = v.play(); if (pr && pr.catch) pr.catch(() => {}); };
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((es) => es.forEach((e) => {
+      const v = e.target;
+      if (e.isIntersecting && e.intersectionRatio >= 0.6) { if (!T.reduced()) playReel(v); else loadReel(v); }
+      else if (!v.paused) v.pause();
+    }), { threshold: [0, 0.6] });
+    reels.forEach((v) => io.observe(v));
+  }
+  reels.forEach((v) => {
+    const btn = $('.reel-sound', v.parentElement);
+    v.parentElement.addEventListener('click', (e) => {
+      if (e.target === btn) return;
+      if (v.paused) playReel(v); else v.pause();
+    });
+    btn.addEventListener('click', () => {
+      const on = v.muted;
+      reels.forEach((o) => { o.muted = true; const b = $('.reel-sound', o.parentElement); b.setAttribute('aria-pressed', 'false'); b.textContent = 'sound off'; });
+      if (on) { v.muted = false; playReel(v); btn.setAttribute('aria-pressed', 'true'); btn.textContent = 'sound on'; }
+      Sound.play('click');
+    });
+  });
+  // "want one for your product?" picks that package on the receipt and takes you there
+  $$('[data-pick]').forEach((b) => b.addEventListener('click', () => {
+    selectPackage(b.dataset.pick, true); Sound.play('tick');
+    $('#receipt').scrollIntoView({ behavior: T.reduced() ? 'auto' : 'smooth' });
+  }));
 
   /* ---------- small threads everywhere ---------- */
   $$('.squiggle').forEach((el, i) => T.squiggle(el, { seed: 41 + i }));

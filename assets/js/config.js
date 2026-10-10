@@ -30,28 +30,35 @@ window.HOOKED = {
     handle: '',      // e.g. 'gethooked' (shown on the phone in the social section)
   },
 
-  // The receipt. Launch prices from the feasibility report, low end of each range.
-  // price = the "from" number in USD. unit shows after it. tag = the one-line "what it is".
+  // The receipt. Same packages and prices as the packages-and-process PDF.
+  // price = launch price for our first 5 clients (USD). was = the regular price, shown crossed out.
+  // unit shows after it. tag = the one-line "what it is". The three monthly packages are 4 reels;
+  // the "8 reels" add-on swaps in the 8-reel price.
   packages: [
-    { id: 'script', label: 'script pack', tag: 'you film it', note: '4 short scripts with hooks and a shot list for each. Jaz writes them, Moj plans the shots.', price: 150, unit: '' },
-    { id: 'edit', label: 'edit pack', tag: 'you send footage', note: '4 edited shorts a month with captions and motion titles. Moj cuts, Jaz writes the hooks.', price: 300, unit: '/mo' },
-    { id: 'concept', label: 'concept to cut', tag: 'we do all of it', note: 'Idea, script, a shoot in our studio, edit and motion. 2 rounds of revisions. Us on camera if you want.', price: 350, unit: '/video' },
-    { id: 'film', label: 'brand film', tag: 'one hero film', note: 'One story film, 60 to 120 seconds, like The Knot. Plus 3 vertical cut-downs.', price: 1200, unit: '' },
+    { id: 'cut', label: 'the cut', tag: 'you send footage', note: '4 reels a month. You film it, Moj cuts it, Jaz writes the hooks and captions. Cover frames and light motion.', price: 150, was: 180, unit: '/mo' },
+    { id: 'direct', label: 'direct', tag: 'you film it', note: '4 reels a month. We write the scripts and plan every shot, you film on your phone, we edit. Hooks, captions, light motion.', price: 230, was: 280, unit: '/mo' },
+    { id: 'hooked', label: 'fully hooked', tag: 'we do all of it', note: '4 reels a month. Ideas, scripts, a shoot in our studio or AI shots, edit, sound and high-end motion.', price: 475, was: 600, unit: '/mo' },
+    { id: 'mshort', label: 'motion short', tag: 'motion · up to 30 s', note: 'A tiny animated story: one idea, one character or product, start to finish.', price: 275, was: 350, unit: '' },
+    { id: 'mstory', label: 'motion story', tag: 'motion · up to 90 s', note: 'A full animated story or explainer: your product, a problem, a turn and an ending.', price: 625, was: 800, unit: '' },
+    { id: 'film', label: 'hero film', tag: 'film · up to 90 s', note: 'Your one big launch film, like The Knot. Scripted, shot in our studio or with AI shots, edited, scored and animated.', price: 900, unit: '' },
   ],
   addons: [
-    { id: 'motion', label: 'motion graphics', note: 'animated titles, charts and logo moments', pct: 20 },
+    { id: 'eight', label: '8 reels a month', note: 'twice the reels, less per reel', per: { cut: 100, direct: 150, hooked: 325 }, wasPer: { cut: 120, direct: 170, hooked: 400 }, unit: '/mo', only: 'monthly packages only' },
     { id: 'rush', label: 'rush', note: 'delivered in under 48 hours', pct: 30 },
     { id: 'ads', label: 'paid-ad rights', note: 'per month you run it as an ad', pct: 30, unit: '/mo' },
     { id: 'revision', label: 'extra revision', note: 'one more round of changes', flat: 50 },
   ],
   // always on the receipt, always free
-  included: { label: 'early delivery', note: 'ready 2 weeks before your date, in a shared drive' },
+  included: { label: 'early delivery', note: 'one-off projects ready 2 weeks before your date' },
+  // the small print under the receipt
+  launchNote: 'launch prices for our first 5 clients, locked for 3 months. USD.',
 
   // "where's your project at?" in prices: each answer picks a package
   routes: {
-    idea: { pkg: 'script', note: 'Start with the <b>script pack</b>. Jaz turns the idea into scripts with hooks, Moj plans every shot so you can film them yourself.' },
-    footage: { pkg: 'edit', note: 'Start with the <b>edit pack</b>. Moj cuts your footage, Jaz writes the hooks, captions and motion titles.' },
-    launch: { pkg: 'concept', note: 'Start with <b>concept to cut</b>. Both of us, start to finish: idea, script, a shoot in our studio, edit and motion.' },
-    big: { pkg: 'film', note: 'Start with a <b>brand film</b>. One story, told properly, plus vertical cut-downs for every feed.' },
+    idea: { pkg: 'direct', note: 'Start with <b>direct</b>. We write the scripts and plan every shot, you film them on your phone, and we edit them into reels.' },
+    footage: { pkg: 'cut', note: 'Start with <b>the cut</b>. You send the footage, Moj cuts it, Jaz writes the hooks and captions.' },
+    launch: { pkg: 'hooked', note: 'Start with <b>fully hooked</b>. Both of us, start to finish: ideas, scripts, a shoot in our studio or AI shots, edit and motion.' },
+    animate: { pkg: 'mstory', note: 'Start with a <b>motion story</b>. Your product, a problem, a turn and an ending, all animated. Like the three films above.' },
+    big: { pkg: 'film', note: 'Start with a <b>hero film</b>. One story, told properly, in every format you need.' },
   },
 };
